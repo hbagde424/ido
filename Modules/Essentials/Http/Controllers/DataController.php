@@ -297,6 +297,11 @@ class DataController extends Controller
                 'label' => __('essentials::lang.access_sales_target'),
                 'default' => false,
             ],
+            [
+                'value' => 'essentials.crud_policy',
+                'label' => 'Manage Policies',
+                'default' => false,
+            ],
         ];
     }
 

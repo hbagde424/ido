@@ -42,6 +42,10 @@
                     @if(auth()->user()->can('edit_essentials_settings'))
                         <li @if(request()->segment(1) == 'hrm' && request()->segment(2) == 'settings') class="active" @endif><a href="{{action([\Modules\Essentials\Http\Controllers\EssentialsSettingsController::class, 'edit'])}}">@lang('business.settings')</a></li>
                     @endif
+
+                    @can('essentials.crud_policy')
+                    <li @if(request()->segment(2) == 'policy') class="active" @endif><a href="{{action([\Modules\Essentials\Http\Controllers\EssentialsPolicyController::class, 'index'])}}">Policies</a></li>
+                    @endcan
                 </ul>
 
             </div><!-- /.navbar-collapse -->

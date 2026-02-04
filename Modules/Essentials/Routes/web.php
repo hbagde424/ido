@@ -106,5 +106,8 @@ Route::middleware('web', 'authh', 'auth', 'SetSessionData', 'language', 'timezon
 Route::get('sales-targets/ajax-targets', [Modules\Essentials\Http\Controllers\SalesTargetController::class, 'ajaxTargets']);
 
         Route::post('/save-sales-target', [Modules\Essentials\Http\Controllers\SalesTargetController::class, 'saveSalesTarget']);
+
+        Route::resource('/policy', 'Modules\Essentials\Http\Controllers\EssentialsPolicyController');
+        Route::get('/policy/{id}/download-pdf', [Modules\Essentials\Http\Controllers\EssentialsPolicyController::class, 'downloadPdf'])->name('policy.downloadPdf');
     });
 });
