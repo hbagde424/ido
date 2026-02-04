@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "237268737471",
+    "project_id": "mossadtodo",
+    "storage_bucket": "mossadtodo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237268737471:android:df8e5ed146a7ac25ca950a",
+        "android_client_info": {
+          "package_name": "com.it.todoapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6JHY09QYKvPjANfmi_bu0iNOkpbFW0wo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
