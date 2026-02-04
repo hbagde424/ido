@@ -25,3 +25,5 @@ npm-debug.log
 .scribe
 /public/docs
 /public/js/skins/
+googleCredentials.json
+/google/google-services.json
