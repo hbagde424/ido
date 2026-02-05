@@ -31,47 +31,44 @@
             flex-shrink: 0;
         }
         .letterhead-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 15px;
+            display: table;
+            width: 100%;
         }
         .company-logo {
-            flex: 0 0 auto;
+            display: table-cell;
+            vertical-align: middle;
+            width: 150px;
         }
-        .company-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin: 0;
-            line-height: 1;
+        .logo-image {
+            display: inline-block;
         }
-        .company-tagline {
-            font-size: 9px;
-            color: #e74c3c;
-            margin: 0;
-            line-height: 1;
+        .logo-image img {
+            max-width: 120px;
+            height: auto;
+            display: block;
         }
         .contact-info {
+            display: table-cell;
+            vertical-align: middle;
             text-align: right;
-            font-size: 9px;
+            font-size: 10px;
             color: #555;
-            line-height: 1.3;
-            flex: 1;
+            line-height: 1.5;
         }
         .contact-info p {
-            margin: 0;
+            margin: 1px 0;
             padding: 0;
         }
         .content-wrapper {
             flex: 1;
-            padding: 15px 25px 80px 25px;
+            padding: 10px 25px 10px 25px;
             overflow-y: auto;
+            position: relative;
         }
         .header {
             text-align: center;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
             border-bottom: 1px solid #8B1538;
         }
         .header h1 {
@@ -81,19 +78,20 @@
             line-height: 1.2;
         }
         .header p {
-            margin: 2px 0;
+            margin: 1px 0;
             color: #666;
             font-size: 11px;
         }
         .content {
-            margin: 15px 0;
+            margin: 10px 0;
             line-height: 1.6;
             text-align: justify;
             font-size: 12px;
+            margin-bottom: 30px;
         }
         .info-table {
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             border-collapse: collapse;
             font-size: 11px;
         }
@@ -117,28 +115,31 @@
             margin: 5px 0;
         }
         .signature-section {
-            margin-top: 30px;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #8B1538;
             display: table;
             width: 100%;
             font-size: 11px;
+            page-break-inside: avoid;
         }
         .signature-box {
             display: table-cell;
             width: 45%;
             text-align: center;
             vertical-align: top;
-            padding: 10px;
+            padding: 8px;
         }
         .signature-image {
             max-width: 150px;
             max-height: 60px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             border: 1px solid #ddd;
             padding: 3px;
         }
         .signature-line {
             border-top: 1px solid #333;
-            margin: 8px auto;
+            margin: 6px auto;
             width: 150px;
         }
         .footer {
@@ -149,9 +150,9 @@
             background: #8B1538;
             color: white;
             text-align: center;
-            padding: 5px 10px;
+            padding: 4px 10px;
             font-size: 8px;
-            line-height: 1.3;
+            line-height: 1.2;
             flex-shrink: 0;
         }
     </style>
@@ -161,24 +162,24 @@
     <div class="letterhead">
         <div class="letterhead-content">
             <div class="company-logo">
-                @php
-                    $svgPath = public_path('images/logo-akalp.svg');
-                    $svgBase64 = null;
-                    if(file_exists($svgPath)) {
-                        $svgContent = file_get_contents($svgPath);
-                        $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
-                    }
-                @endphp
-                @if($svgBase64)
-                    <img src="{{ $svgBase64 }}" alt="AKALP Logo" style="max-width: 100px; height: auto; margin-bottom: 5px;">
-                @endif
-                <h1 class="company-name">AKALP</h1>
-                <p class="company-tagline">TECHNO MEDIA SOLUTIONS</p>
+                <div class="logo-image">
+                    @php
+                        $svgPath = public_path('images/logo-akalp.svg');
+                        $svgBase64 = null;
+                        if(file_exists($svgPath)) {
+                            $svgContent = file_get_contents($svgPath);
+                            $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                        }
+                    @endphp
+                    @if($svgBase64)
+                        <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                    @endif
+                </div>
             </div>
             <div class="contact-info">
-                <p><strong>Web:</strong> www.akalptechnomediasolutions.com</p>
-                <p><strong>Email:</strong> akalptechnomediasolutions@gmail.com</p>
-                <p><strong>Phone:</strong> +91 8085504485, +91 9826068413</p>
+                <p>www.akalptechnomediasolutions.com</p>
+                <p>akalptechnomediasolutions@gmail.com</p>
+                <p>+91 8085504485, +91 9826068413</p>
             </div>
         </div>
     </div>
