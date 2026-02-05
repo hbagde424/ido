@@ -468,6 +468,8 @@ class EssentialsPolicyController extends Controller
             $policy->setRelation('user', $user);
 
             $pdf = PDF::loadView('essentials::policy.pdf', compact('policy'));
+            $pdf->setOption('isPhpEnabled', false);
+            $pdf->setOption('isRemoteEnabled', false);
             return $pdf->download('policy_' . $user->first_name . '_' . $policy_type . '.pdf');
         } catch (\Exception $e) {
             \Log::emergency('PDF Generation Error - File:'.$e->getFile().' Line:'.$e->getLine().' Message:'.$e->getMessage());

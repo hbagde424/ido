@@ -139,19 +139,9 @@
     <div class="letterhead">
         <div class="letterhead-content">
             <div class="company-logo">
-                @php
-                    $logoPath = public_path('images/logo-akalp.png');
-                    $logoBase64 = null;
-                    if(file_exists($logoPath)) {
-                        $imageData = base64_encode(file_get_contents($logoPath));
-                        $logoBase64 = 'data:image/png;base64,' . $imageData;
-                    }
-                @endphp
-                @if($logoBase64)
-                    <img src="{{ $logoBase64 }}" alt="AKALP Logo" style="max-width: 150px; height: auto; margin-bottom: 10px;">
-                @else
-                    <div style="max-width: 150px; height: 80px; background: #f0f0f0; margin-bottom: 10px;"></div>
-                @endif
+                <div style="max-width: 120px; height: 80px; margin-bottom: 10px; background: linear-gradient(135deg, #8B1538 0%, #c41e5e 100%); display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                    <span style="font-size: 24px; font-weight: bold; color: white;">AKALP</span>
+                </div>
                 <h1 class="company-name">AKALP</h1>
                 <p class="company-tagline">TECHNO MEDIA SOLUTIONS</p>
             </div>
