@@ -148,7 +148,9 @@
                     }
                 @endphp
                 @if($logoBase64)
-                    <img src="{{ $logoBase64 }}" alt="AKALP Logo" style="max-width: 120px; height: auto; margin-bottom: 10px;">
+                    <img src="{{ $logoBase64 }}" alt="AKALP Logo" style="max-width: 150px; height: auto; margin-bottom: 10px;">
+                @else
+                    <div style="max-width: 150px; height: 80px; background: #f0f0f0; margin-bottom: 10px;"></div>
                 @endif
                 <h1 class="company-name">AKALP</h1>
                 <p class="company-tagline">TECHNO MEDIA SOLUTIONS</p>
