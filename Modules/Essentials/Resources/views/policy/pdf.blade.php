@@ -4,117 +4,101 @@
     <meta charset="UTF-8">
     <title>{{ $policy->title }}</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
         @page {
             margin: 0;
+            padding: 0;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         .letterhead {
-            background: linear-gradient(to right, #8B1538 0%, #8B1538 15%, white 15%);
-            padding: 20px;
+            background: white;
+            padding: 8px 20px;
             border-bottom: 3px solid #8B1538;
-            margin-bottom: 30px;
+            flex-shrink: 0;
         }
         .letterhead-content {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            gap: 15px;
         }
         .company-logo {
-            flex: 1;
+            flex: 0 0 auto;
         }
         .company-name {
-            font-size: 32px;
+            font-size: 20px;
             font-weight: bold;
             color: #2c3e50;
             margin: 0;
+            line-height: 1;
         }
         .company-tagline {
-            font-size: 14px;
+            font-size: 9px;
             color: #e74c3c;
             margin: 0;
+            line-height: 1;
         }
         .contact-info {
             text-align: right;
-            font-size: 12px;
+            font-size: 9px;
             color: #555;
+            line-height: 1.3;
+            flex: 1;
         }
         .contact-info p {
-            margin: 3px 0;
-        }
-        .contact-icon {
-            color: #e74c3c;
-            margin-right: 5px;
+            margin: 0;
+            padding: 0;
         }
         .content-wrapper {
-            padding: 0 40px;
+            flex: 1;
+            padding: 15px 25px 80px 25px;
+            overflow-y: auto;
         }
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #8B1538;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #8B1538;
         }
         .header h1 {
             margin: 0;
             color: #8B1538;
-            font-size: 24px;
+            font-size: 18px;
+            line-height: 1.2;
         }
         .header p {
-            margin: 5px 0;
+            margin: 2px 0;
             color: #666;
+            font-size: 11px;
         }
         .content {
-            margin: 30px 0;
-            line-height: 1.8;
+            margin: 15px 0;
+            line-height: 1.6;
             text-align: justify;
-        }
-        .signature-section {
-            margin-top: 60px;
-            display: table;
-            width: 100%;
-        }
-        .signature-box {
-            display: table-cell;
-            width: 45%;
-            text-align: center;
-            vertical-align: top;
-            padding: 10px;
-        }
-        .signature-image {
-            max-width: 200px;
-            max-height: 80px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            padding: 5px;
-        }
-        .signature-line {
-            border-top: 2px solid #333;
-            margin: 10px auto;
-            width: 200px;
-        }
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #8B1538;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-size: 11px;
+            font-size: 12px;
         }
         .info-table {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-collapse: collapse;
+            font-size: 11px;
         }
         .info-table td {
-            padding: 10px;
+            padding: 6px 8px;
             border-bottom: 1px solid #ddd;
         }
         .info-table td:first-child {
@@ -125,12 +109,50 @@
         }
         .policy-badge {
             display: inline-block;
-            padding: 5px 15px;
+            padding: 3px 10px;
             background: #8B1538;
             color: white;
-            border-radius: 20px;
-            font-size: 12px;
-            margin: 10px 0;
+            border-radius: 15px;
+            font-size: 10px;
+            margin: 5px 0;
+        }
+        .signature-section {
+            margin-top: 30px;
+            display: table;
+            width: 100%;
+            font-size: 11px;
+        }
+        .signature-box {
+            display: table-cell;
+            width: 45%;
+            text-align: center;
+            vertical-align: top;
+            padding: 10px;
+        }
+        .signature-image {
+            max-width: 150px;
+            max-height: 60px;
+            margin-bottom: 8px;
+            border: 1px solid #ddd;
+            padding: 3px;
+        }
+        .signature-line {
+            border-top: 1px solid #333;
+            margin: 8px auto;
+            width: 150px;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #8B1538;
+            color: white;
+            text-align: center;
+            padding: 5px 10px;
+            font-size: 8px;
+            line-height: 1.3;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -139,20 +161,29 @@
     <div class="letterhead">
         <div class="letterhead-content">
             <div class="company-logo">
-                <div style="max-width: 120px; height: 80px; margin-bottom: 10px; background: linear-gradient(135deg, #8B1538 0%, #c41e5e 100%); display: flex; align-items: center; justify-content: center; border-radius: 4px;">
-                    <span style="font-size: 24px; font-weight: bold; color: white;">AKALP</span>
-                </div>
+                @php
+                    $svgPath = public_path('images/logo-akalp.svg');
+                    $svgBase64 = null;
+                    if(file_exists($svgPath)) {
+                        $svgContent = file_get_contents($svgPath);
+                        $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                    }
+                @endphp
+                @if($svgBase64)
+                    <img src="{{ $svgBase64 }}" alt="AKALP Logo" style="max-width: 100px; height: auto; margin-bottom: 5px;">
+                @endif
                 <h1 class="company-name">AKALP</h1>
                 <p class="company-tagline">TECHNO MEDIA SOLUTIONS</p>
             </div>
             <div class="contact-info">
-                <p>Web: www.akalptechnomediasolutions.com</p>
-                <p>Email: akalptechnomediasolutions@gmail.com</p>
-                <p>Phone: +91 8085504485, +91 9826068413</p>
+                <p><strong>Web:</strong> www.akalptechnomediasolutions.com</p>
+                <p><strong>Email:</strong> akalptechnomediasolutions@gmail.com</p>
+                <p><strong>Phone:</strong> +91 8085504485, +91 9826068413</p>
             </div>
         </div>
     </div>
 
+    <!-- Main Content -->
     <div class="content-wrapper">
         <div class="header">
             <h1>{{ $policy->title }}</h1>
@@ -206,27 +237,27 @@
                 @if($signatureBase64)
                     <img src="{{ $signatureBase64 }}" alt="Signature" class="signature-image">
                 @else
-                    <div style="height: 80px;"></div>
+                    <div style="height: 60px;"></div>
                 @endif
                 <div class="signature-line"></div>
                 <p>{{ $policy->user->first_name }} {{ $policy->user->last_name }}</p>
-                <p style="font-size: 11px; color: #666;">Date: {{ $policy->signed_date ? \Carbon\Carbon::parse($policy->signed_date)->format('d-m-Y') : '___________' }}</p>
+                <p style="font-size: 9px; color: #666;">Date: {{ $policy->signed_date ? \Carbon\Carbon::parse($policy->signed_date)->format('d-m-Y') : '___________' }}</p>
             </div>
 
             <div class="signature-box">
                 <p><strong>Company Representative</strong></p>
-                <div style="height: 80px;"></div>
+                <div style="height: 60px;"></div>
                 <div class="signature-line"></div>
                 <p>Authorized Signatory</p>
-                <p style="font-size: 11px; color: #666;">Date: ___________</p>
+                <p style="font-size: 9px; color: #666;">Date: ___________</p>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <div class="footer">
-        <p>Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
-        <p style="margin-top: 5px; font-size: 10px;">This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}@if($policy->id) | Policy ID: {{ $policy->id }}@endif</p>
+        <p style="margin: 0;">📍 Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+        <p style="margin: 0; font-size: 7px;">This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}@if($policy->id) | Policy ID: {{ $policy->id }}@endif</p>
     </div>
 </body>
 </html>
