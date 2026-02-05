@@ -109,5 +109,11 @@ Route::get('sales-targets/ajax-targets', [Modules\Essentials\Http\Controllers\Sa
 
         Route::resource('/policy', 'Modules\Essentials\Http\Controllers\EssentialsPolicyController');
         Route::get('/policy/{id}/download-pdf', [Modules\Essentials\Http\Controllers\EssentialsPolicyController::class, 'downloadPdf'])->name('policy.downloadPdf');
+        Route::get('/policy-template', [Modules\Essentials\Http\Controllers\EssentialsPolicyController::class, 'getTemplate'])->name('policy.getTemplate');
+        Route::get('/policy-pdf/{policy_type}', [Modules\Essentials\Http\Controllers\EssentialsPolicyController::class, 'downloadPolicyPdf'])->name('policy.downloadPolicyPdf');
+        Route::get('/policy-content', [Modules\Essentials\Http\Controllers\EssentialsPolicyController::class, 'getPolicyContent'])->name('policy.getPolicyContent');
+        Route::post('/policy-signature', [Modules\Essentials\Http\Controllers\EssentialsPolicyController::class, 'saveSignature'])->name('policy.saveSignature');
+        Route::get('/policy-user-pdf', [Modules\Essentials\Http\Controllers\EssentialsPolicyController::class, 'downloadUserPolicyPdf'])->name('policy.downloadUserPolicyPdf');
+        Route::get('/policy-user-signature', [Modules\Essentials\Http\Controllers\EssentialsPolicyController::class, 'getUserSignature'])->name('policy.getUserSignature');
     });
 });

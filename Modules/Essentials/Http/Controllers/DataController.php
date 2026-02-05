@@ -435,6 +435,26 @@ class DataController extends Controller
             $user->essentials_pay_period = request()->input('essentials_pay_period');
             $user->essentials_pay_cycle = request()->input('essentials_pay_cycle');
             $user->location_id = request()->input('location_id');
+
+            // Handle signature photo upload
+            if (request()->hasFile('signature_photo')) {
+                // Delete old signature if exists
+                if ($user->signature_photo && file_exists(public_path('uploads/user_signatures/' . $user->signature_photo))) {
+                    unlink(public_path('uploads/user_signatures/' . $user->signature_photo));
+                }
+
+                $file = request()->file('signature_photo');
+                $filename = time() . '_' . $user->id . '_signature.' . $file->getClientOriginalExtension();
+                
+                // Create directory if not exists
+                if (!file_exists(public_path('uploads/user_signatures'))) {
+                    mkdir(public_path('uploads/user_signatures'), 0777, true);
+                }
+                
+                $file->move(public_path('uploads/user_signatures'), $filename);
+                $user->signature_photo = $filename;
+            }
+
             $user->save();
 
             $non_deleteable_pc_ids = $this->getNonDeletablePayComponents($user->business_id, $user->id);

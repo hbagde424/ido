@@ -16,6 +16,19 @@
             </div>
         </div>
 	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+            {!! Form::label('signature_photo', 'Employee Signature:') !!}
+            <input type="file" name="signature_photo" class="form-control" accept="image/*">
+            @if(!empty($user->signature_photo))
+                <div style="margin-top: 10px;">
+                    <img src="{{ asset('uploads/user_signatures/' . $user->signature_photo) }}" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
+                    <p class="help-block">Current signature</p>
+                </div>
+            @endif
+            <p class="help-block">Upload employee signature image (JPG, PNG) - Max 2MB</p>
+        </div>
+	</div>
 </div>
 @endcomponent
 @component('components.widget', ['title' => __('essentials::lang.payroll')])

@@ -28,7 +28,7 @@
 
                     <div class="form-group">
                         <label>Policy Type <span class="text-danger">*</span></label>
-                        {!! Form::select('policy_type', $policy_types, null, ['class' => 'form-control', 'required' => true]) !!}
+                        {!! Form::select('policy_type', $policy_types, request()->get('policy_type'), ['class' => 'form-control', 'required' => true, 'readonly' => request()->has('policy_type')]) !!}
                     </div>
 
                     <div class="form-group">
@@ -38,6 +38,10 @@
 
                     <div class="form-group">
                         <label>Content</label>
+                        <button type="button" class="btn btn-sm btn-info pull-right" id="load_template_btn">
+                            <i class="fa fa-file-text"></i> Load Default Template
+                        </button>
+                        <div class="clearfix"></div>
                         {!! Form::textarea('content', null, ['class' => 'form-control', 'id' => 'policy_content', 'rows' => 6]) !!}
                     </div>
 
@@ -71,9 +75,10 @@
     $(document).ready(function() {
         tinymce.init({
             selector: '#policy_content',
-            height: 300,
-            plugins: 'link image code',
-            toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | link image | code'
+            height: 400,
+            plugins: 'link image code lists table',
+            toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code',
+            menubar: false
         });
 
         $('#policy_form').validate({
@@ -81,6 +86,32 @@
                 user_id: { required: true },
                 policy_type: { required: true },
                 title: { required: true }
+            }
+        });
+
+        // Load template button
+        $('#load_template_btn').click(function() {
+            var policyType = $('select[name="policy_type"]').val();
+            if (!policyType) {
+                alert('Please select a policy type first');
+                return;
+            }
+
+            if (confirm('This will replace current content. Continue?')) {
+                $.ajax({
+                    url: '{{ action("\Modules\Essentials\Http\Controllers\EssentialsPolicyController@getTemplate") }}',
+                    type: 'GET',
+                    data: { policy_type: policyType },
+                    success: function(response) {
+                        if (response.success) {
+                            tinymce.get('policy_content').setContent(response.template);
+                            alert('Template loaded successfully');
+                        }
+                    },
+                    error: function() {
+                        alert('Error loading template');
+                    }
+                });
             }
         });
     });
