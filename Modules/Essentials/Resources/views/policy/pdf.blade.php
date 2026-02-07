@@ -217,6 +217,22 @@
             {!! $policy->content !!}
         </div>
 
+        <!-- Acknowledgement Section -->
+        <div style="margin-top: 30px; padding: 12px; background: #f5f5f5; border-left: 4px solid #8B1538; page-break-inside: avoid;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 20px; vertical-align: top; padding-right: 10px;">
+                        <div style="width: 16px; height: 16px; border: 2px solid #8B1538; display: inline-block; text-align: center; line-height: 14px; font-weight: bold; color: #8B1538; font-size: 12px;">✓</div>
+                    </td>
+                    <td style="vertical-align: top;">
+                        <p style="margin: 0; font-size: 11px; font-weight: 600; color: #333;">
+                            I acknowledge that I have read and understood this policy document and agree to comply with all its terms and conditions.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
         <div class="signature-section">
             <div class="signature-box">
                 <p><strong>Employee Signature</strong></p>

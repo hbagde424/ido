@@ -85,9 +85,24 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label>Upload Photo <span class="text-danger">*</span></label>
+                                        <input type="file" id="photo_upload" class="form-control" accept="image/*">
+                                        <small class="text-muted">Upload your profile photo (JPG, PNG)</small>
+                                    </div>
+                                    <div id="photo_preview" style="margin-top: 10px; display: none;">
+                                        <img id="photo_img" src="" style="max-width: 200px; max-height: 150px; border: 1px solid #ddd; padding: 5px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top: 20px;">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label>Date</label>
                                         <input type="text" id="signature_date" class="form-control" value="{{ date('d-m-Y') }}" readonly>
                                     </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Employee Name</label>
                                         <input type="text" id="employee_name" class="form-control" readonly>
@@ -98,7 +113,7 @@
                             <div class="row" style="margin-top: 20px;">
                                 <div class="col-md-12">
                                     <button type="button" id="save_signature_btn" class="btn btn-success">
-                                        <i class="fa fa-save"></i> Save Signature & Acknowledge
+                                        <i class="fa fa-save"></i> Save Signature & Photo
                                     </button>
                                 </div>
                             </div>
@@ -115,16 +130,23 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title"><i class="fa fa-book"></i> All Company Policies</h3>
-                    <div class="pull-right">
-                        <select id="user_filter_policies" class="form-control input-sm" style="width: 250px;">
-                            <option value="">-- Select User for Signature --</option>
-                            @foreach($users as $id => $name)
-                                <option value="{{ $id }}">{{ $name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
                 </div>
                 <div class="box-body">
+                    <!-- User Selection -->
+                    <div class="row mb-3" style="margin-bottom: 20px;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Select User <span class="text-danger">*</span></label>
+                                <select id="user_filter_policies" class="form-control select2" required>
+                                    <option value="">-- Select User --</option>
+                                    @foreach($users as $id => $name)
+                                        <option value="{{ $id }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Tabs for Policy Types -->
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
@@ -140,21 +162,54 @@
                                 @include('essentials::policy.letterhead')
                                 <div class="policy-header">
                                     <h2>Company Policy</h2>
-                                    <button class="btn btn-success pull-right download-policy-pdf" data-policy="company_policy">
-                                        <i class="fa fa-download"></i> Download PDF
-                                    </button>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="policy-content-wrapper">
                                     <div class="policy-content">
                                         {!! \Modules\Essentials\Entities\PolicyTemplates::getTemplate('company_policy') !!}
                                     </div>
-                                    <div class="signature-display" id="signature_company_policy" style="display: none;">
-                                        <div style="text-align: right; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
+                                    <!-- Acknowledgement Checkbox -->
+                                    <div class="acknowledgement-section" style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-left: 4px solid #8B1538; border-radius: 3px;">
+                                        <div class="form-group">
+                                            <label style="font-weight: 600; color: #8B1538; margin-bottom: 10px;">
+                                                <input type="checkbox" class="policy-acknowledgement" data-policy="company_policy" style="margin-right: 8px;">
+                                                I acknowledge that I have read and understood the Company Policy
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Signature Upload Section (shown when acknowledgement is checked) -->
+                                    <div class="signature-upload-section" id="signature_upload_company_policy" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; display: none;">
+                                        <h4 style="color: #8B1538; margin-bottom: 15px;">Upload Your Signature</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Signature Image <span class="text-danger">*</span></label>
+                                                    <input type="file" class="form-control signature-file-input" data-policy="company_policy" accept="image/*">
+                                                    <small class="text-muted">Upload your signature image (JPG, PNG)</small>
+                                                </div>
+                                                <div class="signature-preview" style="margin-top: 10px; display: none;">
+                                                    <img class="signature-preview-img" src="" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 5px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-success save-signature-btn" data-policy="company_policy" style="margin-top: 25px;">
+                                                    <i class="fa fa-save"></i> Save Signature
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Signature Display Section (shown after signature is saved) -->
+                                    <div class="signature-display" id="signature_display_company_policy" style="display: none; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
+                                        <div style="text-align: center;">
                                             <p style="margin-bottom: 10px;"><strong>Employee Signature:</strong></p>
-                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px; display: block; margin-left: auto;">
-                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px; text-align: right;"></p>
-                                            <p class="signature-date" style="font-size: 12px; color: #666; text-align: right;"></p>
+                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
+                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px;"></p>
+                                            <p class="signature-date" style="font-size: 12px; color: #666;"></p>
+                                            <button type="button" class="btn btn-info download-policy-pdf-btn" data-policy="company_policy" style="margin-top: 15px;">
+                                                <i class="fa fa-download"></i> Download PDF
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -166,21 +221,54 @@
                                 @include('essentials::policy.letterhead')
                                 <div class="policy-header">
                                     <h2>Human Resources Policy</h2>
-                                    <button class="btn btn-success pull-right download-policy-pdf" data-policy="hr_policy">
-                                        <i class="fa fa-download"></i> Download PDF
-                                    </button>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="policy-content-wrapper">
                                     <div class="policy-content">
                                         {!! \Modules\Essentials\Entities\PolicyTemplates::getTemplate('hr_policy') !!}
                                     </div>
-                                    <div class="signature-display" id="signature_hr_policy" style="display: none;">
-                                        <div style="text-align: right; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
+                                    <!-- Acknowledgement Checkbox -->
+                                    <div class="acknowledgement-section" style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-left: 4px solid #8B1538; border-radius: 3px;">
+                                        <div class="form-group">
+                                            <label style="font-weight: 600; color: #8B1538; margin-bottom: 10px;">
+                                                <input type="checkbox" class="policy-acknowledgement" data-policy="hr_policy" style="margin-right: 8px;">
+                                                I acknowledge that I have read and understood the Human Resources Policy
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Signature Upload Section -->
+                                    <div class="signature-upload-section" id="signature_upload_hr_policy" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; display: none;">
+                                        <h4 style="color: #8B1538; margin-bottom: 15px;">Upload Your Signature</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Signature Image <span class="text-danger">*</span></label>
+                                                    <input type="file" class="form-control signature-file-input" data-policy="hr_policy" accept="image/*">
+                                                    <small class="text-muted">Upload your signature image (JPG, PNG)</small>
+                                                </div>
+                                                <div class="signature-preview" style="margin-top: 10px; display: none;">
+                                                    <img class="signature-preview-img" src="" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 5px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-success save-signature-btn" data-policy="hr_policy" style="margin-top: 25px;">
+                                                    <i class="fa fa-save"></i> Save Signature
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Signature Display Section -->
+                                    <div class="signature-display" id="signature_display_hr_policy" style="display: none; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
+                                        <div style="text-align: center;">
                                             <p style="margin-bottom: 10px;"><strong>Employee Signature:</strong></p>
-                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px; display: block; margin-left: auto;">
-                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px; text-align: right;"></p>
-                                            <p class="signature-date" style="font-size: 12px; color: #666; text-align: right;"></p>
+                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
+                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px;"></p>
+                                            <p class="signature-date" style="font-size: 12px; color: #666;"></p>
+                                            <button type="button" class="btn btn-info download-policy-pdf-btn" data-policy="hr_policy" style="margin-top: 15px;">
+                                                <i class="fa fa-download"></i> Download PDF
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -192,21 +280,54 @@
                                 @include('essentials::policy.letterhead')
                                 <div class="policy-header">
                                     <h2>Leave Policy</h2>
-                                    <button class="btn btn-success pull-right download-policy-pdf" data-policy="leave_policy">
-                                        <i class="fa fa-download"></i> Download PDF
-                                    </button>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="policy-content-wrapper">
                                     <div class="policy-content">
                                         {!! \Modules\Essentials\Entities\PolicyTemplates::getTemplate('leave_policy') !!}
                                     </div>
-                                    <div class="signature-display" id="signature_leave_policy" style="display: none;">
-                                        <div style="text-align: right; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
+                                    <!-- Acknowledgement Checkbox -->
+                                    <div class="acknowledgement-section" style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-left: 4px solid #8B1538; border-radius: 3px;">
+                                        <div class="form-group">
+                                            <label style="font-weight: 600; color: #8B1538; margin-bottom: 10px;">
+                                                <input type="checkbox" class="policy-acknowledgement" data-policy="leave_policy" style="margin-right: 8px;">
+                                                I acknowledge that I have read and understood the Leave Policy
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Signature Upload Section -->
+                                    <div class="signature-upload-section" id="signature_upload_leave_policy" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; display: none;">
+                                        <h4 style="color: #8B1538; margin-bottom: 15px;">Upload Your Signature</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Signature Image <span class="text-danger">*</span></label>
+                                                    <input type="file" class="form-control signature-file-input" data-policy="leave_policy" accept="image/*">
+                                                    <small class="text-muted">Upload your signature image (JPG, PNG)</small>
+                                                </div>
+                                                <div class="signature-preview" style="margin-top: 10px; display: none;">
+                                                    <img class="signature-preview-img" src="" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 5px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-success save-signature-btn" data-policy="leave_policy" style="margin-top: 25px;">
+                                                    <i class="fa fa-save"></i> Save Signature
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Signature Display Section -->
+                                    <div class="signature-display" id="signature_display_leave_policy" style="display: none; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
+                                        <div style="text-align: center;">
                                             <p style="margin-bottom: 10px;"><strong>Employee Signature:</strong></p>
-                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px; display: block; margin-left: auto;">
-                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px; text-align: right;"></p>
-                                            <p class="signature-date" style="font-size: 12px; color: #666; text-align: right;"></p>
+                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
+                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px;"></p>
+                                            <p class="signature-date" style="font-size: 12px; color: #666;"></p>
+                                            <button type="button" class="btn btn-info download-policy-pdf-btn" data-policy="leave_policy" style="margin-top: 15px;">
+                                                <i class="fa fa-download"></i> Download PDF
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -218,21 +339,54 @@
                                 @include('essentials::policy.letterhead')
                                 <div class="policy-header">
                                     <h2>Prevention of Sexual Harassment (POSH) Policy</h2>
-                                    <button class="btn btn-success pull-right download-policy-pdf" data-policy="posh_policy">
-                                        <i class="fa fa-download"></i> Download PDF
-                                    </button>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="policy-content-wrapper">
                                     <div class="policy-content">
                                         {!! \Modules\Essentials\Entities\PolicyTemplates::getTemplate('posh_policy') !!}
                                     </div>
-                                    <div class="signature-display" id="signature_posh_policy" style="display: none;">
-                                        <div style="text-align: right; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
+                                    <!-- Acknowledgement Checkbox -->
+                                    <div class="acknowledgement-section" style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-left: 4px solid #8B1538; border-radius: 3px;">
+                                        <div class="form-group">
+                                            <label style="font-weight: 600; color: #8B1538; margin-bottom: 10px;">
+                                                <input type="checkbox" class="policy-acknowledgement" data-policy="posh_policy" style="margin-right: 8px;">
+                                                I acknowledge that I have read and understood the POSH Policy
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Signature Upload Section -->
+                                    <div class="signature-upload-section" id="signature_upload_posh_policy" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; display: none;">
+                                        <h4 style="color: #8B1538; margin-bottom: 15px;">Upload Your Signature</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Signature Image <span class="text-danger">*</span></label>
+                                                    <input type="file" class="form-control signature-file-input" data-policy="posh_policy" accept="image/*">
+                                                    <small class="text-muted">Upload your signature image (JPG, PNG)</small>
+                                                </div>
+                                                <div class="signature-preview" style="margin-top: 10px; display: none;">
+                                                    <img class="signature-preview-img" src="" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 5px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-success save-signature-btn" data-policy="posh_policy" style="margin-top: 25px;">
+                                                    <i class="fa fa-save"></i> Save Signature
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Signature Display Section -->
+                                    <div class="signature-display" id="signature_display_posh_policy" style="display: none; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
+                                        <div style="text-align: center;">
                                             <p style="margin-bottom: 10px;"><strong>Employee Signature:</strong></p>
-                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px; display: block; margin-left: auto;">
-                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px; text-align: right;"></p>
-                                            <p class="signature-date" style="font-size: 12px; color: #666; text-align: right;"></p>
+                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
+                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px;"></p>
+                                            <p class="signature-date" style="font-size: 12px; color: #666;"></p>
+                                            <button type="button" class="btn btn-info download-policy-pdf-btn" data-policy="posh_policy" style="margin-top: 15px;">
+                                                <i class="fa fa-download"></i> Download PDF
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -244,21 +398,54 @@
                                 @include('essentials::policy.letterhead')
                                 <div class="policy-header">
                                     <h2>Non-Disclosure Agreement (NDA) Policy</h2>
-                                    <button class="btn btn-success pull-right download-policy-pdf" data-policy="nda_policy">
-                                        <i class="fa fa-download"></i> Download PDF
-                                    </button>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="policy-content-wrapper">
                                     <div class="policy-content">
                                         {!! \Modules\Essentials\Entities\PolicyTemplates::getTemplate('nda_policy') !!}
                                     </div>
-                                    <div class="signature-display" id="signature_nda_policy" style="display: none;">
-                                        <div style="text-align: right; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
+                                    <!-- Acknowledgement Checkbox -->
+                                    <div class="acknowledgement-section" style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-left: 4px solid #8B1538; border-radius: 3px;">
+                                        <div class="form-group">
+                                            <label style="font-weight: 600; color: #8B1538; margin-bottom: 10px;">
+                                                <input type="checkbox" class="policy-acknowledgement" data-policy="nda_policy" style="margin-right: 8px;">
+                                                I acknowledge that I have read and understood the NDA Policy
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Signature Upload Section -->
+                                    <div class="signature-upload-section" id="signature_upload_nda_policy" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; display: none;">
+                                        <h4 style="color: #8B1538; margin-bottom: 15px;">Upload Your Signature</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Signature Image <span class="text-danger">*</span></label>
+                                                    <input type="file" class="form-control signature-file-input" data-policy="nda_policy" accept="image/*">
+                                                    <small class="text-muted">Upload your signature image (JPG, PNG)</small>
+                                                </div>
+                                                <div class="signature-preview" style="margin-top: 10px; display: none;">
+                                                    <img class="signature-preview-img" src="" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 5px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-success save-signature-btn" data-policy="nda_policy" style="margin-top: 25px;">
+                                                    <i class="fa fa-save"></i> Save Signature
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Signature Display Section -->
+                                    <div class="signature-display" id="signature_display_nda_policy" style="display: none; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
+                                        <div style="text-align: center;">
                                             <p style="margin-bottom: 10px;"><strong>Employee Signature:</strong></p>
-                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px; display: block; margin-left: auto;">
-                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px; text-align: right;"></p>
-                                            <p class="signature-date" style="font-size: 12px; color: #666; text-align: right;"></p>
+                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
+                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px;"></p>
+                                            <p class="signature-date" style="font-size: 12px; color: #666;"></p>
+                                            <button type="button" class="btn btn-info download-policy-pdf-btn" data-policy="nda_policy" style="margin-top: 15px;">
+                                                <i class="fa fa-download"></i> Download PDF
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -405,59 +592,99 @@
     $(document).ready(function() {
         $('.select2').select2();
 
-        // User filter for policies section
-        $('#user_filter_policies').change(function() {
-            var userId = $(this).val();
-            var userName = $(this).find('option:selected').text();
+        // Acknowledgement checkbox - show signature upload section when checked
+        $(document).on('change', '.policy-acknowledgement', function() {
+            var policy = $(this).data('policy');
+            var isChecked = $(this).is(':checked');
+            var uploadSection = $('#signature_upload_' + policy);
+            
+            if (isChecked) {
+                uploadSection.slideDown();
+            } else {
+                uploadSection.slideUp();
+            }
+        });
 
+        // Signature file preview
+        $(document).on('change', '.signature-file-input', function(e) {
+            var file = e.target.files[0];
+            var policy = $(this).data('policy');
+            
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var previewDiv = $(this).closest('.signature-upload-section').find('.signature-preview');
+                    previewDiv.find('.signature-preview-img').attr('src', e.target.result);
+                    previewDiv.show();
+                }.bind(this);
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Save signature button
+        $(document).on('click', '.save-signature-btn', function() {
+            var policy = $(this).data('policy');
+            var userId = $('#user_filter_policies').val();
+            var fileInput = $('input.signature-file-input[data-policy="' + policy + '"]');
+            var file = fileInput[0].files[0];
+            
             if (!userId) {
-                $('.signature-display').hide();
+                alert('Please select a user first');
                 return;
             }
-
-            // Load signatures for all policies
-            var policyTypes = ['company_policy', 'hr_policy', 'leave_policy', 'posh_policy', 'nda_policy'];
             
-            policyTypes.forEach(function(policyType) {
-                $.ajax({
-                    url: '{{ route("policy.getUserSignature") }}',
-                    type: 'GET',
-                    data: { 
-                        user_id: userId,
-                        policy_type: policyType 
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        var signatureDiv = $('#signature_' + policyType);
+            if (!file) {
+                alert('Please select a signature image');
+                return;
+            }
+            
+            var formData = new FormData();
+            formData.append('user_id', userId);
+            formData.append('policy_type', policy);
+            formData.append('signature', file);
+            formData.append('_token', '{{ csrf_token() }}');
+            
+            $.ajax({
+                url: '{{ route("policy.saveSignature") }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        alert('Signature saved successfully!');
                         
-                        if (response.success && response.signature) {
-                            signatureDiv.find('.signature-image').attr('src', response.signature).css('display', 'block');
-                            signatureDiv.find('.employee-name').text(response.user_name || userName);
-                            signatureDiv.find('.signature-date').text('Date: ' + response.signed_date);
-                            signatureDiv.css('display', 'block');
-                        } else {
-                            signatureDiv.hide();
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('AJAX Error:', error, xhr.status, xhr.responseText);
+                        // Hide upload section and show display section
+                        $('#signature_upload_' + policy).slideUp();
+                        var displayDiv = $('#signature_display_' + policy);
+                        displayDiv.find('.signature-image').attr('src', response.signature);
+                        displayDiv.find('.employee-name').text(response.user_name);
+                        displayDiv.find('.signature-date').text('Date: ' + response.signed_date);
+                        displayDiv.slideDown();
+                        
+                        // Clear file input
+                        fileInput.val('');
+                        fileInput.closest('.signature-upload-section').find('.signature-preview').hide();
                     }
-                });
+                },
+                error: function() {
+                    alert('Error saving signature');
+                }
             });
         });
 
-        // Download policy PDF with user signature
-        $('.download-policy-pdf').click(function() {
-            var policyType = $(this).data('policy');
+        // Download PDF button
+        $(document).on('click', '.download-policy-pdf-btn', function() {
+            var policy = $(this).data('policy');
             var userId = $('#user_filter_policies').val();
-
-            if (userId) {
-                var url = '{{ route("policy.downloadUserPolicyPdf") }}?user_id=' + userId + '&policy_type=' + policyType;
-                window.open(url, '_blank');
-            } else {
-                var url = '{{ route("policy.downloadPolicyPdf", "") }}/' + policyType;
-                window.open(url, '_blank');
+            
+            if (!userId) {
+                alert('Please select a user');
+                return;
             }
+            
+            var url = '{{ route("policy.downloadUserPolicyPdf") }}?user_id=' + userId + '&policy_type=' + policy;
+            window.open(url, '_blank');
         });
 
         // View Policy Button
@@ -533,7 +760,22 @@
             }
         });
 
-        // Save Signature
+        // Photo Upload Preview
+        var photoFile = null;
+        $('#photo_upload').change(function(e) {
+            var file = e.target.files[0];
+            if (file) {
+                photoFile = file;
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#photo_img').attr('src', e.target.result);
+                    $('#photo_preview').show();
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Save Signature and Photo
         $('#save_signature_btn').click(function() {
             if (!selectedUser || !selectedPolicy) {
                 alert('Please select user and policy first');
@@ -551,6 +793,9 @@
             if (signatureFile) {
                 formData.append('signature', signatureFile);
             }
+            if (photoFile) {
+                formData.append('photo', photoFile);
+            }
             formData.append('_token', '{{ csrf_token() }}');
 
             $.ajax({
@@ -561,7 +806,7 @@
                 contentType: false,
                 success: function(response) {
                     if (response.success) {
-                        alert('Signature saved successfully!');
+                        alert('Signature and photo saved successfully!');
                         // Refresh signatures in policy tabs if same user selected
                         if ($('#user_filter_policies').val() == selectedUser) {
                             $('#user_filter_policies').trigger('change');
@@ -569,7 +814,7 @@
                     }
                 },
                 error: function() {
-                    alert('Error saving signature');
+                    alert('Error saving signature and photo');
                 }
             });
         });
