@@ -12,14 +12,14 @@
 <!-- Main content -->
 <section class="content">
     <!-- User-Specific Policy Section -->
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title"><i class="fa fa-user"></i> User-Specific Policy Management</h3>
                 </div>
                 <div class="box-body">
-                    <!-- Filters -->
+                    
                     <div class="row mb-3" style="margin-bottom: 20px;">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -58,17 +58,17 @@
                         </div>
                     </div>
 
-                    <!-- Policy Content Display -->
+                  
                     <div id="policy_display" style="display: none;">
                         <div class="policy-header">
                             <h2 id="policy_title"></h2>
                             <div class="clearfix"></div>
                         </div>
                         <div class="policy-content" id="policy_content_area">
-                            <!-- Policy content will be loaded here -->
+                          
                         </div>
 
-                        <!-- Signature Section -->
+                       
                         <div class="signature-section" style="margin-top: 50px; padding: 20px; border-top: 2px solid #8B1538;">
                             <h3 style="color: #8B1538; margin-bottom: 20px;">Employee Acknowledgment</h3>
                             
@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- All Policies Section -->
     <div class="row">

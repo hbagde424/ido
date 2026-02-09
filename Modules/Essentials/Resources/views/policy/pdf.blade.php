@@ -53,11 +53,12 @@
             text-align: right;
             font-size: 10px;
             color: #555;
-            line-height: 1.5;
+            padding-right: 10px;
         }
         .contact-info p {
-            margin: 1px 0;
+            margin: 2px 0;
             padding: 0;
+            font-size: 9px;
         }
         .content-wrapper {
             flex: 1;
@@ -177,9 +178,9 @@
                 </div>
             </div>
             <div class="contact-info">
-                <p>www.akalptechnomediasolutions.com</p>
-                <p>akalptechnomediasolutions@gmail.com</p>
-                <p>+91 8085504485, +91 9826068413</p>
+                <p>&#9679; www.akalptechnomediasolutions.com</p>
+                <p>&#9679; akalptechnomediasolutions@gmail.com</p>
+                <p>&#9679; +91 8085504485, +91 9826068413</p>
             </div>
         </div>
     </div>
@@ -187,25 +188,25 @@
     <!-- Main Content -->
     <div class="content-wrapper">
         <div class="header">
-            <h1>{{ $policy->title }}</h1>
-            <span class="policy-badge">{{ $policy->getPolicyTypeLabel() }}</span>
-            <p><strong>Status:</strong> {{ $policy->getStatusLabel() }}</p>
+            <h1>{{ $policy->title ?? 'Policy Document' }}</h1>
+            <span class="policy-badge">{{ isset($policy->policy_type) ? \Modules\Essentials\Entities\EssentialsPolicy::$policy_types[$policy->policy_type] ?? $policy->policy_type : 'Policy' }}</span>
+            <p><strong>Status:</strong> {{ isset($policy->status) ? \Modules\Essentials\Entities\EssentialsPolicy::$statuses[$policy->status] ?? $policy->status : 'Pending' }}</p>
         </div>
 
         <table class="info-table">
             <tr>
                 <td>Employee Name:</td>
-                <td>{{ $policy->user->first_name }} {{ $policy->user->last_name }}</td>
+                <td>{{ $policy->user->first_name ?? 'N/A' }} {{ $policy->user->last_name ?? '' }}</td>
             </tr>
             <tr>
                 <td>Employee ID:</td>
-                <td>{{ $policy->user->id }}</td>
+                <td>{{ $policy->user->id ?? 'N/A' }}</td>
             </tr>
             <tr>
                 <td>Document Date:</td>
-                <td>{{ $policy->created_at->format('d-m-Y') }}</td>
+                <td>{{ isset($policy->created_at) ? $policy->created_at->format('d-m-Y') : date('d-m-Y') }}</td>
             </tr>
-            @if($policy->signed_date)
+            @if(isset($policy->signed_date) && $policy->signed_date)
             <tr>
                 <td>Signed Date:</td>
                 <td>{{ \Carbon\Carbon::parse($policy->signed_date)->format('d-m-Y') }}</td>
@@ -221,8 +222,10 @@
         <div style="margin-top: 30px; padding: 12px; background: #f5f5f5; border-left: 4px solid #8B1538; page-break-inside: avoid;">
             <table style="width: 100%; border-collapse: collapse;">
                 <tr>
-                    <td style="width: 20px; vertical-align: top; padding-right: 10px;">
-                        <div style="width: 16px; height: 16px; border: 2px solid #8B1538; display: inline-block; text-align: center; line-height: 14px; font-weight: bold; color: #8B1538; font-size: 12px;">✓</div>
+                    <td style="width: 25px; vertical-align: top; padding-right: 10px; padding-top: 1px;">
+                        <div style="width: 18px; height: 18px; border: 2px solid #8B1538; display: inline-block; background: white; position: relative; box-sizing: border-box;">
+                            <div style="position: absolute; top: 2px; left: 4px; width: 10px; height: 6px; border-left: 2px solid #8B1538; border-bottom: 2px solid #8B1538; transform: rotate(-45deg);"></div>
+                        </div>
                     </td>
                     <td style="vertical-align: top;">
                         <p style="margin: 0; font-size: 11px; font-weight: 600; color: #333;">
@@ -240,7 +243,7 @@
                     $signaturePath = null;
                     if($policy->user && $policy->user->signature_photo) {
                         $signaturePath = public_path('uploads/user_signatures/' . $policy->user->signature_photo);
-                    } elseif($policy->signature_photo) {
+                    } elseif(isset($policy->signature_photo) && $policy->signature_photo) {
                         $signaturePath = public_path('uploads/policy_signatures/' . $policy->signature_photo);
                     }
                     
@@ -257,8 +260,8 @@
                     <div style="height: 60px;"></div>
                 @endif
                 <div class="signature-line"></div>
-                <p>{{ $policy->user->first_name }} {{ $policy->user->last_name }}</p>
-                <p style="font-size: 9px; color: #666;">Date: {{ $policy->signed_date ? \Carbon\Carbon::parse($policy->signed_date)->format('d-m-Y') : '___________' }}</p>
+                <p>{{ $policy->user->first_name ?? 'Employee' }} {{ $policy->user->last_name ?? '' }}</p>
+                <p style="font-size: 9px; color: #666;">Date: {{ isset($policy->signed_date) && $policy->signed_date ? \Carbon\Carbon::parse($policy->signed_date)->format('d-m-Y') : '___________' }}</p>
             </div>
 
             <div class="signature-box">

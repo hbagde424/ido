@@ -446,6 +446,7 @@ class EssentialsPolicyController extends Controller
             if (!$policy) {
                 // Create temporary policy object for PDF
                 $policy = new EssentialsPolicy();
+                $policy->id = null;
                 $policy->user_id = $user_id;
                 $policy->policy_type = $policy_type;
                 $policy->business_id = $business_id;
@@ -458,9 +459,11 @@ class EssentialsPolicyController extends Controller
                     'nda_policy' => 'NDA Policy',
                 ];
                 
-                $policy->title = $policy_types[$policy_type];
+                $policy->title = $policy_types[$policy_type] ?? $policy_type;
                 $policy->content = \Modules\Essentials\Entities\PolicyTemplates::getTemplate($policy_type);
                 $policy->status = 'pending';
+                $policy->signed_date = null;
+                $policy->signature_photo = null;
                 $policy->created_at = now();
             }
 
