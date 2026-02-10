@@ -263,7 +263,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- User-Specific Policy Section -->
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
@@ -373,7 +373,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- All Policies Section -->
     <div class="row">
@@ -504,16 +504,16 @@
                                                     <p>Employee Signature</p>
                                                     <div class="signature-upload-area" id="signature_upload_company_policy">
                                                         <div style="text-align: center;">
-                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="company_policy" accept="image/*">
-                                                            <button class="upload-btn" onclick="$('.signature-file-input[data-policy=\'company_policy\']').click();">
+                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="company_policy" accept="image/*" style="display: none;">
+                                                            <button type="button" class="upload-btn" onclick="$('.signature-file-input[data-policy=\'company_policy\']').click();" style="display: block;">
                                                                 Upload Signature
                                                             </button>
-                                                            <img class="signature-preview-img" src="" style="display: none;">
+                                                            <img class="signature-preview-img" data-policy="company_policy" src="" style="display: none; max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
                                                         </div>
                                                     </div>
                                                     <div class="signature-line"></div>
-                                                    <div class="signature-name" id="employee_name_company">Employee Name</div>
-                                                    <div class="signature-date" id="signature_date_company">Date: ___________</div>
+                                                    <div class="signature-name" id="employee_name_company_policy">Employee Name</div>
+                                                    <div class="signature-date" id="signature_date_company_policy">Date: ___________</div>
                                                 </div>
                                                 
                                                 <div class="signature-box">
@@ -642,16 +642,16 @@
                                                     <p>Employee Signature</p>
                                                     <div class="signature-upload-area" id="signature_upload_hr_policy">
                                                         <div style="text-align: center;">
-                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="hr_policy" accept="image/*">
-                                                            <button class="upload-btn" onclick="$('.signature-file-input[data-policy=\'hr_policy\']').click();">
+                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="hr_policy" accept="image/*" style="display: none;">
+                                                            <button type="button" class="upload-btn" onclick="$('.signature-file-input[data-policy=\'hr_policy\']').click();" style="display: block;">
                                                                 Upload Signature
                                                             </button>
-                                                            <img class="signature-preview-img" src="" style="display: none;">
+                                                            <img class="signature-preview-img" data-policy="hr_policy" src="" style="display: none; max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
                                                         </div>
                                                     </div>
                                                     <div class="signature-line"></div>
-                                                    <div class="signature-name" id="employee_name_hr">Employee Name</div>
-                                                    <div class="signature-date" id="signature_date_hr">Date: ___________</div>
+                                                    <div class="signature-name" id="employee_name_hr_policy">Employee Name</div>
+                                                    <div class="signature-date" id="signature_date_hr_policy">Date: ___________</div>
                                                 </div>
                                                 
                                                 <div class="signature-box">
@@ -782,16 +782,16 @@
                                                     <p>Employee Signature</p>
                                                     <div class="signature-upload-area" id="signature_upload_leave_policy">
                                                         <div style="text-align: center;">
-                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="leave_policy" accept="image/*">
-                                                            <button class="upload-btn" onclick="$('.signature-file-input[data-policy=\'leave_policy\']').click();">
+                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="leave_policy" accept="image/*" style="display: none;">
+                                                            <button type="button" class="upload-btn" onclick="$('.signature-file-input[data-policy=\'leave_policy\']').click();" style="display: block;">
                                                                 Upload Signature
                                                             </button>
-                                                            <img class="signature-preview-img" src="" style="display: none;">
+                                                            <img class="signature-preview-img" data-policy="leave_policy" src="" style="display: none; max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
                                                         </div>
                                                     </div>
                                                     <div class="signature-line"></div>
-                                                    <div class="signature-name" id="employee_name_leave">Employee Name</div>
-                                                    <div class="signature-date" id="signature_date_leave">Date: ___________</div>
+                                                    <div class="signature-name" id="employee_name_leave_policy">Employee Name</div>
+                                                    <div class="signature-date" id="signature_date_leave_policy">Date: ___________</div>
                                                 </div>
                                                 
                                                 <div class="signature-box">
@@ -922,16 +922,16 @@
                                                     <p>Employee Signature</p>
                                                     <div class="signature-upload-area" id="signature_upload_posh_policy">
                                                         <div style="text-align: center;">
-                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="posh_policy" accept="image/*">
-                                                            <button class="upload-btn" onclick="$('.signature-file-input[data-policy=\'posh_policy\']').click();">
+                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="posh_policy" accept="image/*" style="display: none;">
+                                                            <button type="button" class="upload-btn" onclick="$('.signature-file-input[data-policy=\'posh_policy\']').click();" style="display: block;">
                                                                 Upload Signature
                                                             </button>
-                                                            <img class="signature-preview-img" src="" style="display: none;">
+                                                            <img class="signature-preview-img" data-policy="posh_policy" src="" style="display: none; max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
                                                         </div>
                                                     </div>
                                                     <div class="signature-line"></div>
-                                                    <div class="signature-name" id="employee_name_posh">Employee Name</div>
-                                                    <div class="signature-date" id="signature_date_posh">Date: ___________</div>
+                                                    <div class="signature-name" id="employee_name_posh_policy">Employee Name</div>
+                                                    <div class="signature-date" id="signature_date_posh_policy">Date: ___________</div>
                                                 </div>
                                                 
                                                 <div class="signature-box">
@@ -1062,16 +1062,16 @@
                                                     <p>Employee Signature</p>
                                                     <div class="signature-upload-area" id="signature_upload_nda_policy">
                                                         <div style="text-align: center;">
-                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="nda_policy" accept="image/*">
-                                                            <button class="upload-btn" onclick="$('.signature-file-input[data-policy=\'nda_policy\']').click();">
+                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="nda_policy" accept="image/*" style="display: none;">
+                                                            <button type="button" class="upload-btn" onclick="$('.signature-file-input[data-policy=\'nda_policy\']').click();" style="display: block;">
                                                                 Upload Signature
                                                             </button>
-                                                            <img class="signature-preview-img" src="" style="display: none;">
+                                                            <img class="signature-preview-img" data-policy="nda_policy" src="" style="display: none; max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
                                                         </div>
                                                     </div>
                                                     <div class="signature-line"></div>
-                                                    <div class="signature-name" id="employee_name_nda">Employee Name</div>
-                                                    <div class="signature-date" id="signature_date_nda">Date: ___________</div>
+                                                    <div class="signature-name" id="employee_name_nda_policy">Employee Name</div>
+                                                    <div class="signature-date" id="signature_date_nda_policy">Date: ___________</div>
                                                 </div>
                                                 
                                                 <div class="signature-box">
@@ -1374,12 +1374,18 @@
                         $('#policy_content_area').html(response.content);
                         $('#policy_display').slideDown();
 
-                        // If signature exists, show it
+                        // If signature exists, show it and disable upload
                         if (response.signature) {
                             $('#signature_img').attr('src', response.signature);
                             $('#signature_preview').show();
+                            $('#signature_upload').prop('disabled', true);
+                            $('#save_signature_btn').prop('disabled', true).html('<i class="fa fa-check"></i> Already Acknowledged');
+                            $('#save_signature_btn').css('background-color', '#28a745').css('border-color', '#28a745').css('cursor', 'not-allowed');
                         } else {
                             $('#signature_preview').hide();
+                            $('#signature_upload').prop('disabled', false);
+                            $('#save_signature_btn').prop('disabled', false).html('<i class="fa fa-save"></i> Save Signature & Acknowledge');
+                            $('#save_signature_btn').css('background-color', '').css('border-color', '').css('cursor', 'pointer');
                         }
                     }
                 },
@@ -1420,6 +1426,12 @@
 
         // Save Signature and Photo
         $('#save_signature_btn').click(function() {
+            // Check if button is disabled
+            if ($(this).prop('disabled')) {
+                alert('Signature already acknowledged for this policy');
+                return;
+            }
+
             if (!selectedUser || !selectedPolicy) {
                 alert('Please select user and policy first');
                 return;
@@ -1449,15 +1461,21 @@
                 contentType: false,
                 success: function(response) {
                     if (response.success) {
-                        alert('Signature and photo saved successfully!');
+                        alert('Signature saved successfully!');
+                        // Reset form
+                        $('#signature_upload').val('');
+                        signatureFile = null;
                         // Refresh signatures in policy tabs if same user selected
                         if ($('#user_filter_policies').val() == selectedUser) {
                             $('#user_filter_policies').trigger('change');
                         }
+                        // Reload policy to show updated status
+                        $('#view_policy_btn').click();
                     }
                 },
-                error: function() {
-                    alert('Error saving signature and photo');
+                error: function(xhr) {
+                    console.log(xhr);
+                    alert('Error saving signature: ' + (xhr.responseJSON?.message || 'Unknown error'));
                 }
             });
         });
@@ -1479,6 +1497,138 @@
 
             var url = '{{ route("policy.downloadUserPolicyPdf") }}?user_id=' + userId + '&policy_type=' + policyType;
             window.open(url, '_blank');
+        });
+
+        // Handle signature file upload in All Policies section
+        $(document).on('change', '.signature-file-input', function() {
+            var policyType = $(this).data('policy');
+            var file = this.files[0];
+            
+            if (!file) {
+                return;
+            }
+            
+            // Check if user is selected
+            var userId = $('#user_filter_policies').val();
+            if (!userId) {
+                alert('Please select a user first');
+                $(this).val(''); // Clear the file input
+                return;
+            }
+            
+            // Show preview
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('.signature-preview-img[data-policy="' + policyType + '"]').attr('src', e.target.result).show();
+            }
+            reader.readAsDataURL(file);
+            
+            // Auto-save signature
+            var formData = new FormData();
+            formData.append('user_id', userId);
+            formData.append('policy_type', policyType);
+            formData.append('signature', file);
+            formData.append('_token', '{{ csrf_token() }}');
+            
+            $.ajax({
+                url: '{{ route("policy.saveSignature") }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        // Hide upload button and show signature
+                        var uploadArea = $('#signature_upload_' + policyType);
+                        uploadArea.hide();
+                        
+                        // Update employee name and date
+                        $('#employee_name_' + policyType).text(response.user_name || 'Employee Name');
+                        $('#signature_date_' + policyType).text('Date: ' + response.signed_date);
+                        
+                        // Auto-check acknowledgement checkbox
+                        var checkbox = $('input.policy-acknowledgement[data-policy="' + policyType + '"]');
+                        if (checkbox.length) {
+                            checkbox.prop('checked', true);
+                        }
+                        
+                        // Clear file input
+                        $(this).val('');
+                    }
+                },
+                error: function(xhr) {
+                    alert('Error saving signature: ' + (xhr.responseJSON?.message || 'Unknown error'));
+                    $(this).val(''); // Clear the file input on error
+                }
+            });
+        });
+
+        // Load signatures when user is selected in All Policies section
+        $('#user_filter_policies').change(function() {
+            var userId = $(this).val();
+            
+            if (!userId) {
+                $('.signature-preview-img').hide();
+                $('.signature-upload-area').show();
+                $('input.policy-acknowledgement').prop('checked', false);
+                return;
+            }
+            
+            var policyTypes = ['company_policy', 'hr_policy', 'leave_policy', 'posh_policy', 'nda_policy'];
+            
+            policyTypes.forEach(function(policyType) {
+                $.ajax({
+                    url: '{{ route("policy.getUserSignature") }}',
+                    type: 'GET',
+                    data: { 
+                        user_id: userId,
+                        policy_type: policyType 
+                    },
+                    success: function(response) {
+                        var uploadArea = $('#signature_upload_' + policyType);
+                        var uploadBtn = uploadArea.find('.upload-btn');
+                        var fileInput = uploadArea.find('.signature-file-input');
+                        var previewImg = uploadArea.find('.signature-preview-img');
+                        var employeeNameDiv = $('#employee_name_' + policyType);
+                        var signatureDateDiv = $('#signature_date_' + policyType);
+                        
+                        if (response.success && response.signature) {
+                            // Signature exists - show it and hide upload
+                            previewImg.attr('src', response.signature).show();
+                            uploadBtn.hide();
+                            fileInput.hide();
+                            employeeNameDiv.text(response.user_name || 'Employee Name');
+                            signatureDateDiv.text('Date: ' + response.signed_date);
+                            
+                            // Auto-check acknowledgement checkbox
+                            var checkbox = $('input.policy-acknowledgement[data-policy="' + policyType + '"]');
+                            if (checkbox.length) {
+                                checkbox.prop('checked', true);
+                            }
+                        } else {
+                            // No signature - show upload button
+                            previewImg.hide();
+                            uploadBtn.show();
+                            fileInput.show();
+                            employeeNameDiv.text('Employee Name');
+                            signatureDateDiv.text('Date: ___________');
+                            
+                            // Uncheck acknowledgement checkbox
+                            var checkbox = $('input.policy-acknowledgement[data-policy="' + policyType + '"]');
+                            if (checkbox.length) {
+                                checkbox.prop('checked', false);
+                            }
+                        }
+                    },
+                    error: function() {
+                        // On error, show upload button
+                        var uploadArea = $('#signature_upload_' + policyType);
+                        uploadArea.find('.upload-btn').show();
+                        uploadArea.find('.signature-file-input').show();
+                        uploadArea.find('.signature-preview-img').hide();
+                    }
+                });
+            });
         });
     });
 </script>

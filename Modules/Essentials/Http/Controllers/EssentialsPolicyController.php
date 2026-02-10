@@ -370,7 +370,39 @@ class EssentialsPolicyController extends Controller
         }
 
         try {
-            // Find or create policy
+            $user = User::find($user_id);
+            if (!$user) {
+                return response()->json(['success' => false, 'message' => 'User not found']);
+            }
+
+            // Handle signature upload to user table
+            if ($request->hasFile('signature')) {
+                $file = $request->file('signature');
+                
+                // Validate file
+                if (!$file->isValid()) {
+                    return response()->json(['success' => false, 'message' => 'Invalid file uploaded']);
+                }
+
+                // Delete old signature if exists
+                if ($user->signature_photo && file_exists(public_path('uploads/user_signatures/' . $user->signature_photo))) {
+                    @unlink(public_path('uploads/user_signatures/' . $user->signature_photo));
+                }
+
+                // Create directory if not exists
+                if (!file_exists(public_path('uploads/user_signatures'))) {
+                    mkdir(public_path('uploads/user_signatures'), 0755, true);
+                }
+
+                $filename = time() . '_' . $user_id . '_signature.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/user_signatures'), $filename);
+                $user->signature_photo = $filename;
+                $user->save();
+            } else {
+                return response()->json(['success' => false, 'message' => 'No signature file provided']);
+            }
+
+            // Find or create policy record
             $policy = EssentialsPolicy::firstOrNew([
                 'business_id' => $business_id,
                 'user_id' => $user_id,
@@ -389,20 +421,6 @@ class EssentialsPolicyController extends Controller
             $policy->content = \Modules\Essentials\Entities\PolicyTemplates::getTemplate($policy_type);
             $policy->status = 'signed';
             $policy->signed_date = now()->format('Y-m-d');
-
-            // Handle signature upload
-            if ($request->hasFile('signature')) {
-                // Delete old signature if exists
-                if ($policy->signature_photo && file_exists(public_path('uploads/policy_signatures/' . $policy->signature_photo))) {
-                    unlink(public_path('uploads/policy_signatures/' . $policy->signature_photo));
-                }
-
-                $file = $request->file('signature');
-                $filename = time() . '_' . $user_id . '_' . $policy_type . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('uploads/policy_signatures'), $filename);
-                $policy->signature_photo = $filename;
-            }
-
             $policy->save();
 
             return response()->json([
@@ -413,7 +431,7 @@ class EssentialsPolicyController extends Controller
             \Log::emergency('File:'.$e->getFile().'Line:'.$e->getLine().'Message:'.$e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Error saving signature'
+                'message' => 'Error saving signature: ' . $e->getMessage()
             ]);
         }
     }
