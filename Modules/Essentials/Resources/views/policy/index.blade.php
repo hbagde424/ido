@@ -45,6 +45,7 @@
         font-size: 10px;
         color: #555;
         line-height: 1.6;
+            text-align-last: start;
     }
     
     .policy-page-contact p {
@@ -278,7 +279,7 @@
                                 <select id="user_filter" class="form-control select2" required>
                                     <option value="">-- Select User --</option>
                                     @foreach($users as $id => $name)
-                                        <option value="{{ $id }}">{{ $name }}</option>
+                                        <option value="{{ $id }}" @if($id == auth()->user()->id) selected @endif>{{ $name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -299,9 +300,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>&nbsp;</label><br>
-                                <button type="button" id="view_policy_btn" class="btn btn-primary">
+                                <!-- <button type="button" id="view_policy_btn" class="btn btn-primary">
                                     <i class="fa fa-eye"></i> View Policy
-                                </button>
+                                </button> -->
                                 <button type="button" id="download_pdf_btn" class="btn btn-success">
                                     <i class="fa fa-download"></i> Download PDF
                                 </button>
@@ -391,7 +392,7 @@
                                 <select id="user_filter_policies" class="form-control select2" required>
                                     <option value="">-- Select User --</option>
                                     @foreach($users as $id => $name)
-                                        <option value="{{ $id }}">{{ $name }}</option>
+                                        <option value="{{ $id }}" @if($id == auth()->user()->id) selected @endif>{{ $name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -442,9 +443,6 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="policy-page-header">
-                                                <h2>Company Policy - Part {{ $pageIndex + 1 }} of {{ $totalPages }}</h2>
-                                            </div>
                                             <div class="policy-content-section">
                                                 {!! $pageContent !!}
                                             </div>
@@ -569,9 +567,6 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="policy-page-header">
-                                                <h2>HR Policy - Part {{ $pageIndex + 1 }} of {{ $totalPages }}</h2>
-                                            </div>
                                             <div class="policy-content-section">
                                                 {!! $pageContent !!}
                                             </div>
@@ -709,9 +704,6 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="policy-page-header">
-                                                <h2>Leave Policy - Part {{ $pageIndex + 1 }} of {{ $totalPages }}</h2>
-                                            </div>
                                             <div class="policy-content-section">
                                                 {!! $pageContent !!}
                                             </div>
@@ -849,9 +841,6 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="policy-page-header">
-                                                <h2>POSH Policy - Part {{ $pageIndex + 1 }} of {{ $totalPages }}</h2>
-                                            </div>
                                             <div class="policy-content-section">
                                                 {!! $pageContent !!}
                                             </div>
@@ -989,9 +978,6 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="policy-page-header">
-                                                <h2>NDA Policy - Part {{ $pageIndex + 1 }} of {{ $totalPages }}</h2>
-                                            </div>
                                             <div class="policy-content-section">
                                                 {!! $pageContent !!}
                                             </div>

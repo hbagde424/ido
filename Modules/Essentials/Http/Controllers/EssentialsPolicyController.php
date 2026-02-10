@@ -42,9 +42,11 @@ class EssentialsPolicyController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        $users = User::where('business_id', $business_id)
-                    ->select(DB::raw("CONCAT(COALESCE(surname, ''), ' ', COALESCE(first_name, ''), ' ', COALESCE(last_name, '')) as full_name"), 'id')
-                    ->pluck('full_name', 'id');
+        // Get only the currently logged-in user
+        $currentUser = auth()->user();
+        $users = collect([
+            $currentUser->id => trim($currentUser->surname . ' ' . $currentUser->first_name . ' ' . $currentUser->last_name)
+        ]);
 
         return view('essentials::policy.index', compact('users'));
     }
