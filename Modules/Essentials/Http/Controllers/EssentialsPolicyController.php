@@ -43,10 +43,10 @@ class EssentialsPolicyController extends Controller
         }
 
         // Get only the currently logged-in user
-        $currentUser = auth()->user();
-        $users = collect([
-            $currentUser->id => trim($currentUser->surname . ' ' . $currentUser->first_name . ' ' . $currentUser->last_name)
-        ]);
+        $users = User::where('business_id', $business_id)
+                    ->select(DB::raw("CONCAT(COALESCE(surname, ''), ' ', COALESCE(first_name, ''), ' ', COALESCE(last_name, '')) as full_name"), 'id')
+                    ->pluck('full_name', 'id');
+
 
         return view('essentials::policy.index', compact('users'));
     }
