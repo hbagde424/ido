@@ -4,6 +4,257 @@
 @section('content')
 @include('essentials::layouts.nav_hrm')
 
+<style>
+    .policy-pages-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .policy-page-header-section {
+        background: white;
+        padding: 20px 40px;
+        border-bottom: 3px solid #8B1538;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0;
+    }
+    
+    .policy-page-logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .policy-page-logo img {
+        max-width: 100px;
+        height: auto;
+    }
+    
+    .policy-page-logo-text {
+        font-size: 20px;
+        font-weight: bold;
+        color: #8B1538;
+    }
+    
+    .policy-page-contact {
+        text-align: right;
+        font-size: 10px;
+        color: #555;
+        line-height: 1.6;
+    }
+    
+    .policy-page-contact p {
+        margin: 2px 0;
+        padding: 0;
+    }
+    
+    .policy-page-contact img {
+        width: 12px;
+        height: 12px;
+        margin-right: 4px;
+        vertical-align: middle;
+    }
+    
+    .policy-page-footer-section {
+        background: #8B1538;
+        color: white;
+        padding: 12px 40px;
+        text-align: center;
+        font-size: 10px;
+        line-height: 1.4;
+        margin-top: 0;
+    }
+    
+    .policy-page-footer-section p {
+        margin: 2px 0;
+        padding: 0;
+    }
+    
+    .policy-page-footer-icon {
+        margin-right: 5px;
+    }
+    
+    .policy-page {
+        background: white;
+        border: 1px solid #ddd;
+        padding: 40px;
+        min-height: 600px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        page-break-after: always;
+        position: relative;
+    }
+    
+    .policy-page:first-of-type {
+        border-top: none;
+    }
+    
+    .policy-page-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #8B1538;
+    }
+    
+    .policy-page-header h2 {
+        color: #8B1538;
+        margin: 0;
+        font-size: 24px;
+    }
+    
+    .policy-page-number {
+        position: absolute;
+        bottom: 20px;
+        right: 40px;
+        color: #999;
+        font-size: 12px;
+    }
+    
+    .policy-content-section {
+        font-size: 14px;
+        line-height: 1.8;
+        color: #333;
+        margin-bottom: 30px;
+    }
+    
+    .policy-content-section h3 {
+        color: #8B1538;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    
+    .policy-content-section ul {
+        margin-left: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .policy-content-section li {
+        margin-bottom: 8px;
+    }
+    
+    .acknowledgement-box {
+        background: #f5f5f5;
+        border-left: 4px solid #8B1538;
+        padding: 15px;
+        margin-top: 30px;
+        border-radius: 3px;
+    }
+    
+    .acknowledgement-box label {
+        font-weight: 600;
+        color: #8B1538;
+        margin: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+    
+    .acknowledgement-box input[type="checkbox"] {
+        margin-right: 10px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+    
+    .signature-section-final {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 2px solid #8B1538;
+    }
+    
+    .signature-section-final h3 {
+        color: #8B1538;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .signature-boxes {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-top: 40px;
+    }
+    
+    .signature-box {
+        text-align: center;
+    }
+    
+    .signature-box p {
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #8B1538;
+    }
+    
+    .signature-line {
+        border-top: 1px solid #333;
+        margin: 60px 0 10px 0;
+        height: 0;
+    }
+    
+    .signature-name {
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+    
+    .signature-date {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+    }
+    
+    .signature-upload-area {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f9f9f9;
+        border: 1px dashed #ddd;
+        border-radius: 3px;
+        text-align: center;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .signature-upload-area img {
+        max-width: 150px;
+        max-height: 80px;
+        border: 1px solid #ddd;
+        padding: 5px;
+    }
+    
+    .signature-upload-input {
+        display: none;
+    }
+    
+    .upload-btn {
+        background: #8B1538;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    
+    .upload-btn:hover {
+        background: #6b0f2a;
+    }
+    
+    @media print {
+        .policy-page {
+            page-break-after: always;
+            box-shadow: none;
+            border: none;
+        }
+    }
+</style>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Company Policies</h1>
@@ -159,297 +410,689 @@
                         <div class="tab-content">
                             <!-- Company Policy Tab -->
                             <div class="tab-pane active" id="company_policy_tab">
-                                @include('essentials::policy.letterhead')
-                                <div class="policy-header">
-                                    <h2>Company Policy</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="policy-content-wrapper">
-                                    <div class="policy-content">
-                                        {!! \Modules\Essentials\Entities\PolicyTemplates::getTemplate('company_policy') !!}
-                                    </div>
-                                    <!-- Acknowledgement Checkbox -->
-                                    <div class="acknowledgement-section" style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-left: 4px solid #8B1538; border-radius: 3px;">
-                                        <div class="form-group">
-                                            <label style="font-weight: 600; color: #8B1538; margin-bottom: 10px;">
-                                                <input type="checkbox" class="policy-acknowledgement" data-policy="company_policy" style="margin-right: 8px;">
-                                                I acknowledge that I have read and understood the Company Policy
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Signature Upload Section (shown when acknowledgement is checked) -->
-                                    <div class="signature-upload-section" id="signature_upload_company_policy" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; display: none;">
-                                        <h4 style="color: #8B1538; margin-bottom: 15px;">Upload Your Signature</h4>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Signature Image <span class="text-danger">*</span></label>
-                                                    <input type="file" class="form-control signature-file-input" data-policy="company_policy" accept="image/*">
-                                                    <small class="text-muted">Upload your signature image (JPG, PNG)</small>
+                                <div class="policy-pages-container">
+                                    @php
+                                        $pages = \Modules\Essentials\Entities\PolicyTemplates::getTemplatePages('company_policy');
+                                        $totalPages = count($pages);
+                                    @endphp
+                                    
+                                    @foreach($pages as $pageIndex => $pageContent)
+                                        <div class="policy-page">
+                                            <!-- Header on every page -->
+                                            <div class="policy-page-header-section">
+                                                <div class="policy-page-logo">
+                                                    @php
+                                                        $svgPath = public_path('images/logo-akalp.svg');
+                                                        $svgBase64 = null;
+                                                        if(file_exists($svgPath)) {
+                                                            $svgContent = file_get_contents($svgPath);
+                                                            $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                                                        }
+                                                    @endphp
+                                                    @if($svgBase64)
+                                                        <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                                                    @else
+                                                        <span class="policy-page-logo-text">AKALP</span>
+                                                    @endif
                                                 </div>
-                                                <div class="signature-preview" style="margin-top: 10px; display: none;">
-                                                    <img class="signature-preview-img" src="" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 5px;">
+                                                <div class="policy-page-contact">
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> www.akalptechnomediasolutions.com</p>
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> akalptechnomediasolutions@gmail.com</p>
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> +91 8085504485, +91 9826068413</p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-success save-signature-btn" data-policy="company_policy" style="margin-top: 25px;">
-                                                    <i class="fa fa-save"></i> Save Signature
-                                                </button>
+                                            
+                                            <div class="policy-page-header">
+                                                <h2>Company Policy - Part {{ $pageIndex + 1 }} of {{ $totalPages }}</h2>
+                                            </div>
+                                            <div class="policy-content-section">
+                                                {!! $pageContent !!}
+                                            </div>
+                                            
+                                            <!-- Acknowledgement on every page -->
+                                            <div class="acknowledgement-box">
+                                                <label>
+                                                    <input type="checkbox" class="policy-acknowledgement" data-policy="company_policy">
+                                                    I acknowledge that I have read this section of the Company Policy
+                                                </label>
+                                            </div>
+                                            
+                                            <div class="policy-page-number">Page {{ $pageIndex + 1 }} of {{ $totalPages }}</div>
+                                            
+                                            <!-- Footer -->
+                                            <div class="policy-page-footer-section">
+                                                <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                                <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Signature Display Section (shown after signature is saved) -->
-                                    <div class="signature-display" id="signature_display_company_policy" style="display: none; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
-                                        <div style="text-align: center;">
-                                            <p style="margin-bottom: 10px;"><strong>Employee Signature:</strong></p>
-                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
-                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px;"></p>
-                                            <p class="signature-date" style="font-size: 12px; color: #666;"></p>
-                                            <button type="button" class="btn btn-info download-policy-pdf-btn" data-policy="company_policy" style="margin-top: 15px;">
-                                                <i class="fa fa-download"></i> Download PDF
-                                            </button>
+                                    @endforeach
+                                    
+                                    <!-- Last Page - Signature -->
+                                    <div class="policy-page">
+                                        <!-- Header on final page -->
+                                        <div class="policy-page-header-section">
+                                            <div class="policy-page-logo">
+                                                @php
+                                                    $svgPath = public_path('images/logo-akalp.svg');
+                                                    $svgBase64 = null;
+                                                    if(file_exists($svgPath)) {
+                                                        $svgContent = file_get_contents($svgPath);
+                                                        $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                                                    }
+                                                @endphp
+                                                @if($svgBase64)
+                                                    <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                                                @else
+                                                    <span class="policy-page-logo-text">AKALP</span>
+                                                @endif
+                                            </div>
+                                            <div class="policy-page-contact">
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> www.akalptechnomediasolutions.com</p>
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> akalptechnomediasolutions@gmail.com</p>
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> +91 8085504485, +91 9826068413</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="policy-page-header">
+                                            <h2>Employee Acknowledgment & Signature</h2>
+                                        </div>
+                                        
+                                        <div class="signature-section-final">
+                                            <h3>Signatures</h3>
+                                            <div class="signature-boxes">
+                                                <div class="signature-box">
+                                                    <p>Employee Signature</p>
+                                                    <div class="signature-upload-area" id="signature_upload_company_policy">
+                                                        <div style="text-align: center;">
+                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="company_policy" accept="image/*">
+                                                            <button class="upload-btn" onclick="$('.signature-file-input[data-policy=\'company_policy\']').click();">
+                                                                Upload Signature
+                                                            </button>
+                                                            <img class="signature-preview-img" src="" style="display: none;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="signature-line"></div>
+                                                    <div class="signature-name" id="employee_name_company">Employee Name</div>
+                                                    <div class="signature-date" id="signature_date_company">Date: ___________</div>
+                                                </div>
+                                                
+                                                <div class="signature-box">
+                                                    <p>Company Representative</p>
+                                                    <div style="height: 80px;"></div>
+                                                    <div class="signature-line"></div>
+                                                    <div class="signature-name">Authorized Signatory</div>
+                                                    <div class="signature-date">Date: ___________</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="policy-page-number">Page {{ $totalPages + 1 }} (Final)</div>
+                                        
+                                        <!-- Footer -->
+                                        <div class="policy-page-footer-section">
+                                            <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                            <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                @include('essentials::policy.footer')
                             </div>
-
-                            <!-- HR Policy Tab -->
                             <div class="tab-pane" id="hr_policy_tab">
-                                @include('essentials::policy.letterhead')
-                                <div class="policy-header">
-                                    <h2>Human Resources Policy</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="policy-content-wrapper">
-                                    <div class="policy-content">
-                                        {!! \Modules\Essentials\Entities\PolicyTemplates::getTemplate('hr_policy') !!}
-                                    </div>
-                                    <!-- Acknowledgement Checkbox -->
-                                    <div class="acknowledgement-section" style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-left: 4px solid #8B1538; border-radius: 3px;">
-                                        <div class="form-group">
-                                            <label style="font-weight: 600; color: #8B1538; margin-bottom: 10px;">
-                                                <input type="checkbox" class="policy-acknowledgement" data-policy="hr_policy" style="margin-right: 8px;">
-                                                I acknowledge that I have read and understood the Human Resources Policy
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Signature Upload Section -->
-                                    <div class="signature-upload-section" id="signature_upload_hr_policy" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; display: none;">
-                                        <h4 style="color: #8B1538; margin-bottom: 15px;">Upload Your Signature</h4>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Signature Image <span class="text-danger">*</span></label>
-                                                    <input type="file" class="form-control signature-file-input" data-policy="hr_policy" accept="image/*">
-                                                    <small class="text-muted">Upload your signature image (JPG, PNG)</small>
+                                <div class="policy-pages-container">
+                                    @php
+                                        $pages = \Modules\Essentials\Entities\PolicyTemplates::getTemplatePages('hr_policy');
+                                        $totalPages = count($pages);
+                                    @endphp
+                                    
+                                    @foreach($pages as $pageIndex => $pageContent)
+                                        <div class="policy-page">
+                                            <!-- Header on every page -->
+                                            <div class="policy-page-header-section">
+                                                <div class="policy-page-logo">
+                                                    @php
+                                                        $svgPath = public_path('images/logo-akalp.svg');
+                                                        $svgBase64 = null;
+                                                        if(file_exists($svgPath)) {
+                                                            $svgContent = file_get_contents($svgPath);
+                                                            $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                                                        }
+                                                    @endphp
+                                                    @if($svgBase64)
+                                                        <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                                                    @else
+                                                        <span class="policy-page-logo-text">AKALP</span>
+                                                    @endif
                                                 </div>
-                                                <div class="signature-preview" style="margin-top: 10px; display: none;">
-                                                    <img class="signature-preview-img" src="" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 5px;">
+                                                <div class="policy-page-contact">
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> www.akalptechnomediasolutions.com</p>
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> akalptechnomediasolutions@gmail.com</p>
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> +91 8085504485, +91 9826068413</p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-success save-signature-btn" data-policy="hr_policy" style="margin-top: 25px;">
-                                                    <i class="fa fa-save"></i> Save Signature
-                                                </button>
+                                            
+                                            <div class="policy-page-header">
+                                                <h2>HR Policy - Part {{ $pageIndex + 1 }} of {{ $totalPages }}</h2>
+                                            </div>
+                                            <div class="policy-content-section">
+                                                {!! $pageContent !!}
+                                            </div>
+                                            
+                                            <!-- Acknowledgement on every page -->
+                                            <div class="acknowledgement-box">
+                                                <label>
+                                                    <input type="checkbox" class="policy-acknowledgement" data-policy="hr_policy">
+                                                    I acknowledge that I have read this section of the HR Policy
+                                                </label>
+                                            </div>
+                                            
+                                            <div class="policy-page-number">Page {{ $pageIndex + 1 }} of {{ $totalPages }}</div>
+                                            
+                                            <!-- Footer -->
+                                            <div class="policy-page-footer-section">
+                                                <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                                <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Signature Display Section -->
-                                    <div class="signature-display" id="signature_display_hr_policy" style="display: none; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
-                                        <div style="text-align: center;">
-                                            <p style="margin-bottom: 10px;"><strong>Employee Signature:</strong></p>
-                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
-                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px;"></p>
-                                            <p class="signature-date" style="font-size: 12px; color: #666;"></p>
-                                            <button type="button" class="btn btn-info download-policy-pdf-btn" data-policy="hr_policy" style="margin-top: 15px;">
-                                                <i class="fa fa-download"></i> Download PDF
-                                            </button>
+                                    @endforeach
+                                    
+                                    <!-- Last Page - Signature -->
+                                    <div class="policy-page">
+                                        <!-- Header on final page -->
+                                        <div class="policy-page-header-section">
+                                            <div class="policy-page-logo">
+                                                @php
+                                                    $svgPath = public_path('images/logo-akalp.svg');
+                                                    $svgBase64 = null;
+                                                    if(file_exists($svgPath)) {
+                                                        $svgContent = file_get_contents($svgPath);
+                                                        $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                                                    }
+                                                @endphp
+                                                @if($svgBase64)
+                                                    <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                                                @else
+                                                    <span class="policy-page-logo-text">AKALP</span>
+                                                @endif
+                                            </div>
+                                            <div class="policy-page-contact">
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> www.akalptechnomediasolutions.com</p>
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> akalptechnomediasolutions@gmail.com</p>
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> +91 8085504485, +91 9826068413</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="policy-page-header">
+                                            <h2>Employee Acknowledgment & Signature</h2>
+                                        </div>
+                                        
+                                        <div class="acknowledgement-box" style="margin-top: 40px;">
+                                            <p style="margin: 0 0 15px 0; font-weight: 600; color: #8B1538;">
+                                                By signing below, I confirm that:
+                                            </p>
+                                            <ul style="margin: 0; padding-left: 20px;">
+                                                <li>I have read and understood all sections of the HR Policy</li>
+                                                <li>I agree to comply with all terms and conditions</li>
+                                                <li>I understand the consequences of non-compliance</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="signature-section-final">
+                                            <h3>Signatures</h3>
+                                            <div class="signature-boxes">
+                                                <div class="signature-box">
+                                                    <p>Employee Signature</p>
+                                                    <div class="signature-upload-area" id="signature_upload_hr_policy">
+                                                        <div style="text-align: center;">
+                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="hr_policy" accept="image/*">
+                                                            <button class="upload-btn" onclick="$('.signature-file-input[data-policy=\'hr_policy\']').click();">
+                                                                Upload Signature
+                                                            </button>
+                                                            <img class="signature-preview-img" src="" style="display: none;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="signature-line"></div>
+                                                    <div class="signature-name" id="employee_name_hr">Employee Name</div>
+                                                    <div class="signature-date" id="signature_date_hr">Date: ___________</div>
+                                                </div>
+                                                
+                                                <div class="signature-box">
+                                                    <p>Company Representative</p>
+                                                    <div style="height: 80px;"></div>
+                                                    <div class="signature-line"></div>
+                                                    <div class="signature-name">Authorized Signatory</div>
+                                                    <div class="signature-date">Date: ___________</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="policy-page-number">Page {{ $totalPages + 1 }} (Final)</div>
+                                        
+                                        <!-- Footer -->
+                                        <div class="policy-page-footer-section">
+                                            <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                            <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                @include('essentials::policy.footer')
                             </div>
 
                             <!-- Leave Policy Tab -->
                             <div class="tab-pane" id="leave_policy_tab">
-                                @include('essentials::policy.letterhead')
-                                <div class="policy-header">
-                                    <h2>Leave Policy</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="policy-content-wrapper">
-                                    <div class="policy-content">
-                                        {!! \Modules\Essentials\Entities\PolicyTemplates::getTemplate('leave_policy') !!}
-                                    </div>
-                                    <!-- Acknowledgement Checkbox -->
-                                    <div class="acknowledgement-section" style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-left: 4px solid #8B1538; border-radius: 3px;">
-                                        <div class="form-group">
-                                            <label style="font-weight: 600; color: #8B1538; margin-bottom: 10px;">
-                                                <input type="checkbox" class="policy-acknowledgement" data-policy="leave_policy" style="margin-right: 8px;">
-                                                I acknowledge that I have read and understood the Leave Policy
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Signature Upload Section -->
-                                    <div class="signature-upload-section" id="signature_upload_leave_policy" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; display: none;">
-                                        <h4 style="color: #8B1538; margin-bottom: 15px;">Upload Your Signature</h4>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Signature Image <span class="text-danger">*</span></label>
-                                                    <input type="file" class="form-control signature-file-input" data-policy="leave_policy" accept="image/*">
-                                                    <small class="text-muted">Upload your signature image (JPG, PNG)</small>
+                                <div class="policy-pages-container">
+                                    @php
+                                        $pages = \Modules\Essentials\Entities\PolicyTemplates::getTemplatePages('leave_policy');
+                                        $totalPages = count($pages);
+                                    @endphp
+                                    
+                                    @foreach($pages as $pageIndex => $pageContent)
+                                        <div class="policy-page">
+                                            <!-- Header on every page -->
+                                            <div class="policy-page-header-section">
+                                                <div class="policy-page-logo">
+                                                    @php
+                                                        $svgPath = public_path('images/logo-akalp.svg');
+                                                        $svgBase64 = null;
+                                                        if(file_exists($svgPath)) {
+                                                            $svgContent = file_get_contents($svgPath);
+                                                            $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                                                        }
+                                                    @endphp
+                                                    @if($svgBase64)
+                                                        <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                                                    @else
+                                                        <span class="policy-page-logo-text">AKALP</span>
+                                                    @endif
                                                 </div>
-                                                <div class="signature-preview" style="margin-top: 10px; display: none;">
-                                                    <img class="signature-preview-img" src="" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 5px;">
+                                                <div class="policy-page-contact">
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> www.akalptechnomediasolutions.com</p>
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> akalptechnomediasolutions@gmail.com</p>
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> +91 8085504485, +91 9826068413</p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-success save-signature-btn" data-policy="leave_policy" style="margin-top: 25px;">
-                                                    <i class="fa fa-save"></i> Save Signature
-                                                </button>
+                                            
+                                            <div class="policy-page-header">
+                                                <h2>Leave Policy - Part {{ $pageIndex + 1 }} of {{ $totalPages }}</h2>
+                                            </div>
+                                            <div class="policy-content-section">
+                                                {!! $pageContent !!}
+                                            </div>
+                                            
+                                            <!-- Acknowledgement on every page -->
+                                            <div class="acknowledgement-box">
+                                                <label>
+                                                    <input type="checkbox" class="policy-acknowledgement" data-policy="leave_policy">
+                                                    I acknowledge that I have read this section of the Leave Policy
+                                                </label>
+                                            </div>
+                                            
+                                            <div class="policy-page-number">Page {{ $pageIndex + 1 }} of {{ $totalPages }}</div>
+                                            
+                                            <!-- Footer -->
+                                            <div class="policy-page-footer-section">
+                                                <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                                <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Signature Display Section -->
-                                    <div class="signature-display" id="signature_display_leave_policy" style="display: none; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
-                                        <div style="text-align: center;">
-                                            <p style="margin-bottom: 10px;"><strong>Employee Signature:</strong></p>
-                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
-                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px;"></p>
-                                            <p class="signature-date" style="font-size: 12px; color: #666;"></p>
-                                            <button type="button" class="btn btn-info download-policy-pdf-btn" data-policy="leave_policy" style="margin-top: 15px;">
-                                                <i class="fa fa-download"></i> Download PDF
-                                            </button>
+                                    @endforeach
+                                    
+                                    <!-- Last Page - Signature -->
+                                    <div class="policy-page">
+                                        <!-- Header on final page -->
+                                        <div class="policy-page-header-section">
+                                            <div class="policy-page-logo">
+                                                @php
+                                                    $svgPath = public_path('images/logo-akalp.svg');
+                                                    $svgBase64 = null;
+                                                    if(file_exists($svgPath)) {
+                                                        $svgContent = file_get_contents($svgPath);
+                                                        $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                                                    }
+                                                @endphp
+                                                @if($svgBase64)
+                                                    <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                                                @else
+                                                    <span class="policy-page-logo-text">AKALP</span>
+                                                @endif
+                                            </div>
+                                            <div class="policy-page-contact">
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> www.akalptechnomediasolutions.com</p>
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> akalptechnomediasolutions@gmail.com</p>
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> +91 8085504485, +91 9826068413</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="policy-page-header">
+                                            <h2>Employee Acknowledgment & Signature</h2>
+                                        </div>
+                                        
+                                        <div class="acknowledgement-box" style="margin-top: 40px;">
+                                            <p style="margin: 0 0 15px 0; font-weight: 600; color: #8B1538;">
+                                                By signing below, I confirm that:
+                                            </p>
+                                            <ul style="margin: 0; padding-left: 20px;">
+                                                <li>I have read and understood all sections of the Leave Policy</li>
+                                                <li>I agree to comply with all terms and conditions</li>
+                                                <li>I understand the consequences of non-compliance</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="signature-section-final">
+                                            <h3>Signatures</h3>
+                                            <div class="signature-boxes">
+                                                <div class="signature-box">
+                                                    <p>Employee Signature</p>
+                                                    <div class="signature-upload-area" id="signature_upload_leave_policy">
+                                                        <div style="text-align: center;">
+                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="leave_policy" accept="image/*">
+                                                            <button class="upload-btn" onclick="$('.signature-file-input[data-policy=\'leave_policy\']').click();">
+                                                                Upload Signature
+                                                            </button>
+                                                            <img class="signature-preview-img" src="" style="display: none;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="signature-line"></div>
+                                                    <div class="signature-name" id="employee_name_leave">Employee Name</div>
+                                                    <div class="signature-date" id="signature_date_leave">Date: ___________</div>
+                                                </div>
+                                                
+                                                <div class="signature-box">
+                                                    <p>Company Representative</p>
+                                                    <div style="height: 80px;"></div>
+                                                    <div class="signature-line"></div>
+                                                    <div class="signature-name">Authorized Signatory</div>
+                                                    <div class="signature-date">Date: ___________</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="policy-page-number">Page {{ $totalPages + 1 }} (Final)</div>
+                                        
+                                        <!-- Footer -->
+                                        <div class="policy-page-footer-section">
+                                            <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                            <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                @include('essentials::policy.footer')
                             </div>
 
                             <!-- POSH Policy Tab -->
                             <div class="tab-pane" id="posh_policy_tab">
-                                @include('essentials::policy.letterhead')
-                                <div class="policy-header">
-                                    <h2>Prevention of Sexual Harassment (POSH) Policy</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="policy-content-wrapper">
-                                    <div class="policy-content">
-                                        {!! \Modules\Essentials\Entities\PolicyTemplates::getTemplate('posh_policy') !!}
-                                    </div>
-                                    <!-- Acknowledgement Checkbox -->
-                                    <div class="acknowledgement-section" style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-left: 4px solid #8B1538; border-radius: 3px;">
-                                        <div class="form-group">
-                                            <label style="font-weight: 600; color: #8B1538; margin-bottom: 10px;">
-                                                <input type="checkbox" class="policy-acknowledgement" data-policy="posh_policy" style="margin-right: 8px;">
-                                                I acknowledge that I have read and understood the POSH Policy
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Signature Upload Section -->
-                                    <div class="signature-upload-section" id="signature_upload_posh_policy" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; display: none;">
-                                        <h4 style="color: #8B1538; margin-bottom: 15px;">Upload Your Signature</h4>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Signature Image <span class="text-danger">*</span></label>
-                                                    <input type="file" class="form-control signature-file-input" data-policy="posh_policy" accept="image/*">
-                                                    <small class="text-muted">Upload your signature image (JPG, PNG)</small>
+                                <div class="policy-pages-container">
+                                    @php
+                                        $pages = \Modules\Essentials\Entities\PolicyTemplates::getTemplatePages('posh_policy');
+                                        $totalPages = count($pages);
+                                    @endphp
+                                    
+                                    @foreach($pages as $pageIndex => $pageContent)
+                                        <div class="policy-page">
+                                            <!-- Header on every page -->
+                                            <div class="policy-page-header-section">
+                                                <div class="policy-page-logo">
+                                                    @php
+                                                        $svgPath = public_path('images/logo-akalp.svg');
+                                                        $svgBase64 = null;
+                                                        if(file_exists($svgPath)) {
+                                                            $svgContent = file_get_contents($svgPath);
+                                                            $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                                                        }
+                                                    @endphp
+                                                    @if($svgBase64)
+                                                        <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                                                    @else
+                                                        <span class="policy-page-logo-text">AKALP</span>
+                                                    @endif
                                                 </div>
-                                                <div class="signature-preview" style="margin-top: 10px; display: none;">
-                                                    <img class="signature-preview-img" src="" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 5px;">
+                                                <div class="policy-page-contact">
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> www.akalptechnomediasolutions.com</p>
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> akalptechnomediasolutions@gmail.com</p>
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> +91 8085504485, +91 9826068413</p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-success save-signature-btn" data-policy="posh_policy" style="margin-top: 25px;">
-                                                    <i class="fa fa-save"></i> Save Signature
-                                                </button>
+                                            
+                                            <div class="policy-page-header">
+                                                <h2>POSH Policy - Part {{ $pageIndex + 1 }} of {{ $totalPages }}</h2>
+                                            </div>
+                                            <div class="policy-content-section">
+                                                {!! $pageContent !!}
+                                            </div>
+                                            
+                                            <!-- Acknowledgement on every page -->
+                                            <div class="acknowledgement-box">
+                                                <label>
+                                                    <input type="checkbox" class="policy-acknowledgement" data-policy="posh_policy">
+                                                    I acknowledge that I have read this section of the POSH Policy
+                                                </label>
+                                            </div>
+                                            
+                                            <div class="policy-page-number">Page {{ $pageIndex + 1 }} of {{ $totalPages }}</div>
+                                            
+                                            <!-- Footer -->
+                                            <div class="policy-page-footer-section">
+                                                <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                                <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Signature Display Section -->
-                                    <div class="signature-display" id="signature_display_posh_policy" style="display: none; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
-                                        <div style="text-align: center;">
-                                            <p style="margin-bottom: 10px;"><strong>Employee Signature:</strong></p>
-                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
-                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px;"></p>
-                                            <p class="signature-date" style="font-size: 12px; color: #666;"></p>
-                                            <button type="button" class="btn btn-info download-policy-pdf-btn" data-policy="posh_policy" style="margin-top: 15px;">
-                                                <i class="fa fa-download"></i> Download PDF
-                                            </button>
+                                    @endforeach
+                                    
+                                    <!-- Last Page - Signature -->
+                                    <div class="policy-page">
+                                        <!-- Header on final page -->
+                                        <div class="policy-page-header-section">
+                                            <div class="policy-page-logo">
+                                                @php
+                                                    $svgPath = public_path('images/logo-akalp.svg');
+                                                    $svgBase64 = null;
+                                                    if(file_exists($svgPath)) {
+                                                        $svgContent = file_get_contents($svgPath);
+                                                        $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                                                    }
+                                                @endphp
+                                                @if($svgBase64)
+                                                    <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                                                @else
+                                                    <span class="policy-page-logo-text">AKALP</span>
+                                                @endif
+                                            </div>
+                                            <div class="policy-page-contact">
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> www.akalptechnomediasolutions.com</p>
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> akalptechnomediasolutions@gmail.com</p>
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> +91 8085504485, +91 9826068413</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="policy-page-header">
+                                            <h2>Employee Acknowledgment & Signature</h2>
+                                        </div>
+                                        
+                                        <div class="acknowledgement-box" style="margin-top: 40px;">
+                                            <p style="margin: 0 0 15px 0; font-weight: 600; color: #8B1538;">
+                                                By signing below, I confirm that:
+                                            </p>
+                                            <ul style="margin: 0; padding-left: 20px;">
+                                                <li>I have read and understood all sections of the POSH Policy</li>
+                                                <li>I agree to comply with all terms and conditions</li>
+                                                <li>I understand the consequences of non-compliance</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="signature-section-final">
+                                            <h3>Signatures</h3>
+                                            <div class="signature-boxes">
+                                                <div class="signature-box">
+                                                    <p>Employee Signature</p>
+                                                    <div class="signature-upload-area" id="signature_upload_posh_policy">
+                                                        <div style="text-align: center;">
+                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="posh_policy" accept="image/*">
+                                                            <button class="upload-btn" onclick="$('.signature-file-input[data-policy=\'posh_policy\']').click();">
+                                                                Upload Signature
+                                                            </button>
+                                                            <img class="signature-preview-img" src="" style="display: none;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="signature-line"></div>
+                                                    <div class="signature-name" id="employee_name_posh">Employee Name</div>
+                                                    <div class="signature-date" id="signature_date_posh">Date: ___________</div>
+                                                </div>
+                                                
+                                                <div class="signature-box">
+                                                    <p>Company Representative</p>
+                                                    <div style="height: 80px;"></div>
+                                                    <div class="signature-line"></div>
+                                                    <div class="signature-name">Authorized Signatory</div>
+                                                    <div class="signature-date">Date: ___________</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="policy-page-number">Page {{ $totalPages + 1 }} (Final)</div>
+                                        
+                                        <!-- Footer -->
+                                        <div class="policy-page-footer-section">
+                                            <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                            <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                @include('essentials::policy.footer')
                             </div>
 
                             <!-- NDA Policy Tab -->
                             <div class="tab-pane" id="nda_policy_tab">
-                                @include('essentials::policy.letterhead')
-                                <div class="policy-header">
-                                    <h2>Non-Disclosure Agreement (NDA) Policy</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="policy-content-wrapper">
-                                    <div class="policy-content">
-                                        {!! \Modules\Essentials\Entities\PolicyTemplates::getTemplate('nda_policy') !!}
-                                    </div>
-                                    <!-- Acknowledgement Checkbox -->
-                                    <div class="acknowledgement-section" style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-left: 4px solid #8B1538; border-radius: 3px;">
-                                        <div class="form-group">
-                                            <label style="font-weight: 600; color: #8B1538; margin-bottom: 10px;">
-                                                <input type="checkbox" class="policy-acknowledgement" data-policy="nda_policy" style="margin-right: 8px;">
-                                                I acknowledge that I have read and understood the NDA Policy
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Signature Upload Section -->
-                                    <div class="signature-upload-section" id="signature_upload_nda_policy" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; display: none;">
-                                        <h4 style="color: #8B1538; margin-bottom: 15px;">Upload Your Signature</h4>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Signature Image <span class="text-danger">*</span></label>
-                                                    <input type="file" class="form-control signature-file-input" data-policy="nda_policy" accept="image/*">
-                                                    <small class="text-muted">Upload your signature image (JPG, PNG)</small>
+                                <div class="policy-pages-container">
+                                    @php
+                                        $pages = \Modules\Essentials\Entities\PolicyTemplates::getTemplatePages('nda_policy');
+                                        $totalPages = count($pages);
+                                    @endphp
+                                    
+                                    @foreach($pages as $pageIndex => $pageContent)
+                                        <div class="policy-page">
+                                            <!-- Header on every page -->
+                                            <div class="policy-page-header-section">
+                                                <div class="policy-page-logo">
+                                                    @php
+                                                        $svgPath = public_path('images/logo-akalp.svg');
+                                                        $svgBase64 = null;
+                                                        if(file_exists($svgPath)) {
+                                                            $svgContent = file_get_contents($svgPath);
+                                                            $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                                                        }
+                                                    @endphp
+                                                    @if($svgBase64)
+                                                        <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                                                    @else
+                                                        <span class="policy-page-logo-text">AKALP</span>
+                                                    @endif
                                                 </div>
-                                                <div class="signature-preview" style="margin-top: 10px; display: none;">
-                                                    <img class="signature-preview-img" src="" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 5px;">
+                                                <div class="policy-page-contact">
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> www.akalptechnomediasolutions.com</p>
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> akalptechnomediasolutions@gmail.com</p>
+                                                    <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> +91 8085504485, +91 9826068413</p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-success save-signature-btn" data-policy="nda_policy" style="margin-top: 25px;">
-                                                    <i class="fa fa-save"></i> Save Signature
-                                                </button>
+                                            
+                                            <div class="policy-page-header">
+                                                <h2>NDA Policy - Part {{ $pageIndex + 1 }} of {{ $totalPages }}</h2>
+                                            </div>
+                                            <div class="policy-content-section">
+                                                {!! $pageContent !!}
+                                            </div>
+                                            
+                                            <!-- Acknowledgement on every page -->
+                                            <div class="acknowledgement-box">
+                                                <label>
+                                                    <input type="checkbox" class="policy-acknowledgement" data-policy="nda_policy">
+                                                    I acknowledge that I have read this section of the NDA Policy
+                                                </label>
+                                            </div>
+                                            
+                                            <div class="policy-page-number">Page {{ $pageIndex + 1 }} of {{ $totalPages }}</div>
+                                            
+                                            <!-- Footer -->
+                                            <div class="policy-page-footer-section">
+                                                <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                                <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Signature Display Section -->
-                                    <div class="signature-display" id="signature_display_nda_policy" style="display: none; margin-top: 30px; padding: 15px; border-top: 2px solid #8B1538;">
-                                        <div style="text-align: center;">
-                                            <p style="margin-bottom: 10px;"><strong>Employee Signature:</strong></p>
-                                            <img class="signature-image" src="" style="max-width: 150px; max-height: 80px; border: 1px solid #ddd; padding: 5px;">
-                                            <p class="employee-name" style="margin-top: 5px; font-size: 14px;"></p>
-                                            <p class="signature-date" style="font-size: 12px; color: #666;"></p>
-                                            <button type="button" class="btn btn-info download-policy-pdf-btn" data-policy="nda_policy" style="margin-top: 15px;">
-                                                <i class="fa fa-download"></i> Download PDF
-                                            </button>
+                                    @endforeach
+                                    
+                                    <!-- Last Page - Signature -->
+                                    <div class="policy-page">
+                                        <!-- Header on final page -->
+                                        <div class="policy-page-header-section">
+                                            <div class="policy-page-logo">
+                                                @php
+                                                    $svgPath = public_path('images/logo-akalp.svg');
+                                                    $svgBase64 = null;
+                                                    if(file_exists($svgPath)) {
+                                                        $svgContent = file_get_contents($svgPath);
+                                                        $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                                                    }
+                                                @endphp
+                                                @if($svgBase64)
+                                                    <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                                                @else
+                                                    <span class="policy-page-logo-text">AKALP</span>
+                                                @endif
+                                            </div>
+                                            <div class="policy-page-contact">
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> www.akalptechnomediasolutions.com</p>
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> akalptechnomediasolutions@gmail.com</p>
+                                                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> +91 8085504485, +91 9826068413</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="policy-page-header">
+                                            <h2>Employee Acknowledgment & Signature</h2>
+                                        </div>
+                                        
+                                        <div class="acknowledgement-box" style="margin-top: 40px;">
+                                            <p style="margin: 0 0 15px 0; font-weight: 600; color: #8B1538;">
+                                                By signing below, I confirm that:
+                                            </p>
+                                            <ul style="margin: 0; padding-left: 20px;">
+                                                <li>I have read and understood all sections of the NDA Policy</li>
+                                                <li>I agree to comply with all terms and conditions</li>
+                                                <li>I understand the consequences of non-compliance</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="signature-section-final">
+                                            <h3>Signatures</h3>
+                                            <div class="signature-boxes">
+                                                <div class="signature-box">
+                                                    <p>Employee Signature</p>
+                                                    <div class="signature-upload-area" id="signature_upload_nda_policy">
+                                                        <div style="text-align: center;">
+                                                            <input type="file" class="signature-upload-input signature-file-input" data-policy="nda_policy" accept="image/*">
+                                                            <button class="upload-btn" onclick="$('.signature-file-input[data-policy=\'nda_policy\']').click();">
+                                                                Upload Signature
+                                                            </button>
+                                                            <img class="signature-preview-img" src="" style="display: none;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="signature-line"></div>
+                                                    <div class="signature-name" id="employee_name_nda">Employee Name</div>
+                                                    <div class="signature-date" id="signature_date_nda">Date: ___________</div>
+                                                </div>
+                                                
+                                                <div class="signature-box">
+                                                    <p>Company Representative</p>
+                                                    <div style="height: 80px;"></div>
+                                                    <div class="signature-line"></div>
+                                                    <div class="signature-name">Authorized Signatory</div>
+                                                    <div class="signature-date">Date: ___________</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="policy-page-number">Page {{ $totalPages + 1 }} (Final)</div>
+                                        
+                                        <!-- Footer -->
+                                        <div class="policy-page-footer-section">
+                                            <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                            <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                @include('essentials::policy.footer')
                             </div>
                         </div>
                     </div>

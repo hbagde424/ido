@@ -16,6 +16,45 @@ class PolicyTemplates
 
         return $templates[$policy_type] ?? '';
     }
+    
+    /**
+     * Split policy content into pages (approximately 3-4 sections per policy)
+     */
+    public static function getTemplatePages($policy_type)
+    {
+        $content = self::getTemplate($policy_type);
+        
+        // Split by h3 tags to create logical sections
+        $sections = preg_split('/<h3>/', $content);
+        
+        // Group sections into pages (3-4 sections per page)
+        $pages = [];
+        $currentPage = '';
+        $sectionCount = 0;
+        
+        foreach ($sections as $index => $section) {
+            if ($index === 0) {
+                $currentPage = $section;
+            } else {
+                $currentPage .= '<h3>' . $section;
+                $sectionCount++;
+                
+                // Create new page after 3-4 sections
+                if ($sectionCount >= 3 && strlen($currentPage) > 1000) {
+                    $pages[] = $currentPage;
+                    $currentPage = '';
+                    $sectionCount = 0;
+                }
+            }
+        }
+        
+        // Add remaining content
+        if (!empty($currentPage)) {
+            $pages[] = $currentPage;
+        }
+        
+        return !empty($pages) ? $pages : [$content];
+    }
 
     private static function companyPolicyTemplate()
     {

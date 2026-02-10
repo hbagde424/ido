@@ -33,6 +33,7 @@
         .letterhead-content {
             display: table;
             width: 100%;
+            height: 120px;
         }
         .company-logo {
             display: table-cell;
@@ -47,19 +48,37 @@
             height: auto;
             display: block;
         }
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #8B1538;
+            display: block;
+        }
         .contact-info {
             display: table-cell;
             vertical-align: middle;
             text-align: right;
-            font-size: 10px;
+            font-size: 11px;
             color: #555;
             padding-right: 10px;
         }
-        .contact-info p {
-            margin: 2px 0;
-            padding: 0;
-            font-size: 9px;
-        }
+.contact-info p { 
+    margin: 5px 0;
+    padding: 0;
+    font-size: 11px;
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.contact-info img {
+    width: 7px;
+    height: 7px;
+    margin-right: 8px;
+    margin-top: -5px;
+}
+
         .content-wrapper {
             flex: 1;
             padding: 10px 25px 10px 25px;
@@ -178,9 +197,9 @@
                 </div>
             </div>
             <div class="contact-info">
-                <p>&#9679; www.akalptechnomediasolutions.com</p>
-                <p>&#9679; akalptechnomediasolutions@gmail.com</p>
-                <p>&#9679; +91 8085504485, +91 9826068413</p>
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> <span>www.akalptechnomediasolutions.com</span></p>
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> <span>akalptechnomediasolutions@gmail.com</span></p>
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> <span>+91 8085504485, +91 9826068413</span></p>
             </div>
         </div>
     </div>
