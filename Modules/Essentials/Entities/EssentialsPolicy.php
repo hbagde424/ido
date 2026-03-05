@@ -20,7 +20,6 @@ class EssentialsPolicy extends Model
      */
     public static $policy_types = [
         'company_policy' => 'Company Policy',
-        'hr_policy' => 'HR Policy',
         'leave_policy' => 'Leave Policy',
         'posh_policy' => 'POSH Policy',
         'nda_policy' => 'NDA Policy',

@@ -370,7 +370,6 @@ return [
     'policies' => 'Policies',
     'policy' => 'Policy',
     'company_policy' => 'Company Policy',
-    'hr_policy' => 'HR Policy',
     'leave_policy' => 'Leave Policy',
     'posh_policy' => 'POSH Policy',
     'nda_policy' => 'NDA Policy',

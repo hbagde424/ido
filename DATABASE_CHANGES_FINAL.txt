@@ -1,0 +1,178 @@
+===============================================
+DATABASE CHANGES - FINAL SUMMARY
+===============================================
+
+🎯 WHAT NEEDS TO CHANGE IN DATABASE?
+===============================================
+
+Table: essentials_policies
+
+Change 1: DELETE HR Policy Records
+Change 2: UPDATE Company Policy Content
+Change 3: UPDATE Leave Policy Content
+
+===============================================
+📋 QUERIES TO RUN (In Order)
+===============================================
+
+QUERY 1: Check current status
+---
+SELECT policy_type, COUNT(*) as count 
+FROM essentials_policies 
+GROUP BY policy_type;
+
+Expected Output:
+company_policy | 14
+hr_policy      | X (any number)
+leave_policy   | 2
+nda_policy     | X
+posh_policy    | X
+
+---
+
+QUERY 2: Delete HR Policy records
+---
+DELETE FROM essentials_policies 
+WHERE policy_type = 'hr_policy';
+
+Expected: X rows deleted
+
+---
+
+QUERY 3: Verify HR Policy deletion
+---
+SELECT COUNT(*) as hr_policy_count
+FROM essentials_policies 
+WHERE policy_type = 'hr_policy';
+
+Expected: 0
+
+---
+
+QUERY 4: Update Company Policy content
+---
+php update_policy_content.php
+
+Expected: ✓ Successfully updated 14 company policy records
+
+---
+
+QUERY 5: Update Leave Policy content
+---
+php update_leave_policy_content.php
+
+Expected: ✓ Successfully updated 2 leave policy records
+
+---
+
+QUERY 6: Final verification
+---
+SELECT policy_type, COUNT(*) as count 
+FROM essentials_policies 
+GROUP BY policy_type;
+
+Expected Output:
+company_policy | 14
+leave_policy   | 2
+nda_policy     | X
+posh_policy    | X
+
+===============================================
+🚀 QUICK EXECUTION STEPS
+===============================================
+
+Step 1: Backup
+mysqldump -u user -p database > backup.sql
+
+Step 2: Run Query 1 (Check status)
+SELECT policy_type, COUNT(*) FROM essentials_policies GROUP BY policy_type;
+
+Step 3: Run Query 2 (Delete HR Policy)
+DELETE FROM essentials_policies WHERE policy_type = 'hr_policy';
+
+Step 4: Run Query 3 (Verify deletion)
+SELECT COUNT(*) FROM essentials_policies WHERE policy_type = 'hr_policy';
+
+Step 5: Run Query 4 (Update Company Policy)
+php update_policy_content.php
+
+Step 6: Run Query 5 (Update Leave Policy)
+php update_leave_policy_content.php
+
+Step 7: Run Query 6 (Final verification)
+SELECT policy_type, COUNT(*) FROM essentials_policies GROUP BY policy_type;
+
+===============================================
+✅ VERIFICATION CHECKLIST
+===============================================
+
+- [ ] Backup created
+- [ ] Query 1 executed (check status)
+- [ ] Query 2 executed (delete HR Policy)
+- [ ] Query 3 executed (verify deletion = 0)
+- [ ] Query 4 executed (update company policy)
+- [ ] Query 5 executed (update leave policy)
+- [ ] Query 6 executed (final verification)
+- [ ] HR Policy count = 0
+- [ ] Company Policy count = 14
+- [ ] Leave Policy count = 2
+- [ ] Total records = 18
+
+===============================================
+📊 EXPECTED FINAL STATE
+===============================================
+
+Table: essentials_policies
+
+Total Records: 18
+- company_policy: 14 (content updated)
+- leave_policy: 2 (content updated)
+- nda_policy: X (unchanged)
+- posh_policy: X (unchanged)
+
+HR Policy: DELETED (0 records)
+
+===============================================
+🔄 IF SOMETHING GOES WRONG
+===============================================
+
+Rollback:
+mysql -u user -p database < backup.sql
+
+Check logs:
+tail -f storage/logs/laravel.log
+
+===============================================
+📝 IMPORTANT NOTES
+===============================================
+
+1. Use PHP scripts for content updates
+   - Don't manually update content via SQL
+   - PHP scripts handle large content properly
+
+2. HR Policy deletion is optional
+   - You can keep records if needed
+   - Or delete them completely
+
+3. Always backup before changes
+   - Use: mysqldump -u user -p db > backup.sql
+
+4. Verify after each step
+   - Run verification queries
+
+5. No schema changes needed
+   - Only data updates required
+
+===============================================
+✨ THAT'S IT!
+===============================================
+
+After running all queries:
+1. Clear Laravel cache: php artisan optimize:clear
+2. Clear browser cache: Ctrl + Shift + Delete
+3. Test PDFs in browser
+4. Verify new content appears
+
+Database changes are complete! 🎉
+
+===============================================

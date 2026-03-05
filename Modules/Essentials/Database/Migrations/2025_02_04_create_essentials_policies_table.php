@@ -17,7 +17,7 @@ class CreateEssentialsPoliciesTable extends Migration
             $table->increments('id');
             $table->integer('business_id')->index();
             $table->integer('user_id')->index();
-            $table->enum('policy_type', ['company_policy', 'hr_policy', 'leave_policy', 'posh_policy', 'nda_policy']);
+            $table->enum('policy_type', ['company_policy', 'leave_policy', 'posh_policy', 'nda_policy']);
             $table->string('title');
             $table->longText('content')->nullable();
             $table->string('signature_photo')->nullable();

@@ -62,23 +62,21 @@
             color: #555;
             padding-right: 10px;
         }
-.contact-info p { 
-    margin: 5px 0;
-    padding: 0;
-    font-size: 11px;
-    line-height: 1.6;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.contact-info img {
-    width: 7px;
-    height: 7px;
-    margin-right: 8px;
-    margin-top: -5px;
-}
-
+        .contact-info p { 
+            margin: 5px 0;
+            padding: 0;
+            font-size: 11px;
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .contact-info img {
+            width: 7px;
+            height: 7px;
+            margin-right: 8px;
+            margin-top: -5px;
+        }
         .content-wrapper {
             flex: 1;
             padding: 10px 25px 10px 25px;
@@ -104,10 +102,71 @@
         }
         .content {
             margin: 10px 0;
-            line-height: 1.6;
+            line-height: 1.8;
             text-align: justify;
             font-size: 12px;
             margin-bottom: 30px;
+        }
+        .content h2 {
+            color: #8B1538;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #8B1538;
+            padding-bottom: 8px;
+        }
+        .content h3 {
+            color: #8B1538;
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #8B1538;
+            padding-bottom: 6px;
+        }
+        .content h4 {
+            color: #8B1538;
+            font-size: 12px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        .content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+            line-height: 2;
+        }
+        .content li {
+            margin-bottom: 8px;
+        }
+        .content p {
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 11px;
+        }
+        .content table th {
+            background-color: #8B1538;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #8B1538;
+        }
+        .content table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .content table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .content div {
+            margin-bottom: 20px;
+        }
+        .content strong {
+            color: #333;
         }
         .info-table {
             width: 100%;

@@ -4,97 +4,169 @@
     <meta charset="UTF-8">
     <title>{{ $title }}</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
         @page {
             margin: 0;
+            padding: 0;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         .letterhead {
-            background: linear-gradient(to right, #8B1538 0%, #8B1538 15%, white 15%);
-            padding: 20px;
+            background: white;
+            padding: 8px 20px;
             border-bottom: 3px solid #8B1538;
-            margin-bottom: 30px;
+            flex-shrink: 0;
         }
         .letterhead-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: table;
+            width: 100%;
+            height: 120px;
         }
         .company-logo {
-            flex: 1;
+            display: table-cell;
+            vertical-align: middle;
+            width: 150px;
         }
-        .company-name {
-            font-size: 32px;
+        .logo-image {
+            display: inline-block;
+        }
+        .logo-image img {
+            max-width: 120px;
+            height: auto;
+            display: block;
+        }
+        .logo-text {
+            font-size: 24px;
             font-weight: bold;
-            color: #2c3e50;
-            margin: 0;
-        }
-        .company-tagline {
-            font-size: 14px;
-            color: #e74c3c;
-            margin: 0;
+            color: #8B1538;
+            display: block;
         }
         .contact-info {
+            display: table-cell;
+            vertical-align: middle;
             text-align: right;
-            font-size: 12px;
+            font-size: 11px;
             color: #555;
+            padding-right: 10px;
         }
-        .contact-info p {
-            margin: 3px 0;
+        .contact-info p { 
+            margin: 5px 0;
+            padding: 0;
+            font-size: 11px;
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
         }
-        .contact-icon {
-            color: #e74c3c;
-            margin-right: 5px;
+        .contact-info img {
+            width: 7px;
+            height: 7px;
+            margin-right: 8px;
+            margin-top: -5px;
         }
         .content-wrapper {
-            padding: 0 40px 100px 40px;
+            flex: 1;
+            padding: 10px 25px 10px 25px;
+            overflow-y: auto;
+            position: relative;
         }
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #8B1538;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #8B1538;
         }
         .header h1 {
             margin: 0;
             color: #8B1538;
-            font-size: 24px;
+            font-size: 18px;
+            line-height: 1.2;
+        }
+        .header p {
+            margin: 1px 0;
+            color: #666;
+            font-size: 11px;
         }
         .content {
-            margin: 30px 0;
+            margin: 10px 0;
             line-height: 1.8;
             text-align: justify;
+            font-size: 12px;
+            margin-bottom: 30px;
         }
         .content h2 {
             color: #8B1538;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 12px;
             border-bottom: 2px solid #8B1538;
-            padding-bottom: 10px;
-            margin-top: 30px;
-            font-size: 20px;
+            padding-bottom: 8px;
         }
         .content h3 {
-            color: #2c3e50;
-            margin-top: 25px;
-            font-size: 16px;
+            color: #8B1538;
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #8B1538;
+            padding-bottom: 6px;
         }
         .content h4 {
-            color: #34495e;
-            margin-top: 20px;
-            font-size: 14px;
+            color: #8B1538;
+            font-size: 12px;
+            margin-top: 15px;
+            margin-bottom: 10px;
         }
         .content ul {
             margin-left: 20px;
             margin-bottom: 15px;
+            line-height: 2;
         }
         .content li {
             margin-bottom: 8px;
         }
         .content p {
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
             margin-bottom: 15px;
+            font-size: 11px;
+        }
+        .content table th {
+            background-color: #8B1538;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #8B1538;
+        }
+        .content table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .content table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .content div {
+            margin-bottom: 20px;
+        }
+        .content strong {
+            color: #333;
         }
         .footer {
             position: fixed;
@@ -104,17 +176,10 @@
             background: #8B1538;
             color: white;
             text-align: center;
-            padding: 15px;
-            font-size: 11px;
-        }
-        .policy-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            background: #8B1538;
-            color: white;
-            border-radius: 20px;
-            font-size: 12px;
-            margin: 10px 0;
+            padding: 4px 10px;
+            font-size: 8px;
+            line-height: 1.2;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -123,21 +188,32 @@
     <div class="letterhead">
         <div class="letterhead-content">
             <div class="company-logo">
-                <h1 class="company-name">AKALP</h1>
-                <p class="company-tagline">TECHNO MEDIA SOLUTIONS</p>
+                <div class="logo-image">
+                    @php
+                        $svgPath = public_path('images/logo-akalp.svg');
+                        $svgBase64 = null;
+                        if(file_exists($svgPath)) {
+                            $svgContent = file_get_contents($svgPath);
+                            $svgBase64 = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+                        }
+                    @endphp
+                    @if($svgBase64)
+                        <img src="{{ $svgBase64 }}" alt="AKALP Logo">
+                    @endif
+                </div>
             </div>
             <div class="contact-info">
-                <p><span class="contact-icon">🌐</span> www.akalptechnomediasolutions.com</p>
-                <p><span class="contact-icon">✉</span> akalptechnomediasolutions@gmail.com</p>
-                <p><span class="contact-icon">📞</span> +91 8085504485, +91 9826068413</p>
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMTIgNlYxMkwxNiAxNCIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="web"> <span>www.akalptechnomediasolutions.com</span></p>
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yIDZMMTIgMTNMMjIgNiIgc3Ryb2tlPSIjOEIxNTM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="email"> <span>akalptechnomediasolutions@gmail.com</span></p>
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5QzMgNS4xMzQwMSA2LjEzNDAxIDIgMTAgMkMxMy44NjYgMiAxNyA1LjEzNDAxIDE3IDlDMTcgMTQgMTAgMjIgMTAgMjJTMyAxNCAzIDlaIiBzdHJva2U9IiM4QjE1MzgiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iOSIgcj0iMiIgZmlsbD0iIzhCMTUzOCIvPjwvc3ZnPg==" alt="phone"> <span>+91 8085504485, +91 9826068413</span></p>
             </div>
         </div>
     </div>
 
+    <!-- Main Content -->
     <div class="content-wrapper">
         <div class="header">
             <h1>{{ $title }}</h1>
-            <span class="policy-badge">Official Company Policy</span>
         </div>
 
         <div class="content">
@@ -147,8 +223,8 @@
 
     <!-- Footer -->
     <div class="footer">
-        <p>📍 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
-        <p style="margin-top: 5px; font-size: 10px;">This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
+        <p style="margin: 0;">📍 Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+        <p style="margin: 0; font-size: 7px;">This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
     </div>
 </body>
 </html>

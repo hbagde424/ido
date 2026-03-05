@@ -1,0 +1,71 @@
+===============================================
+LIVE SERVER DEPLOYMENT - FILES TO UPLOAD
+===============================================
+
+📁 IMPORTANT FILES (Upload via FTP/FileZilla):
+===============================================
+
+1. Modules/Essentials/Entities/PolicyTemplates.php
+   ✓ Company Policy content updated
+   ✓ Leave Policy content updated
+   ✓ HR Policy removed
+
+2. Modules/Essentials/Resources/views/policy/index.blade.php
+   ✓ HR Policy dropdown option removed
+   ✓ HR Policy tab removed
+   ✓ JavaScript updated
+
+3. Modules/Essentials/Http/Controllers/EssentialsPolicyController.php
+   ✓ HR Policy references removed
+
+4. Modules/Essentials/Entities/EssentialsPolicy.php
+   ✓ HR Policy from model removed
+
+5. Modules/Essentials/Resources/lang/en/lang.php
+   ✓ HR Policy translation removed
+
+6. update_policy_content.php (Upload to ROOT directory)
+   ✓ Updates Company Policy in database
+
+7. update_leave_policy_content.php (Upload to ROOT directory)
+   ✓ Updates Leave Policy in database
+
+===============================================
+📝 COMMANDS TO RUN (via SSH/Terminal):
+===============================================
+
+# Step 1: Update database content
+php update_policy_content.php
+php update_leave_policy_content.php
+
+# Step 2: Clear all caches
+php artisan optimize:clear
+
+===============================================
+🗑️ OPTIONAL - Remove HR Policy Data:
+===============================================
+
+Run in phpMyAdmin or MySQL:
+DELETE FROM essentials_policies WHERE policy_type = 'hr_policy';
+
+===============================================
+✅ VERIFICATION STEPS:
+===============================================
+
+1. Clear browser cache (Ctrl + Shift + Delete)
+2. Reload policy page (Ctrl + F5)
+3. Select user
+4. Download Company Policy PDF → Check new content
+5. Download Leave Policy PDF → Check new content
+6. Verify HR Policy is not visible in dropdown
+
+===============================================
+⚠️ IMPORTANT NOTES:
+===============================================
+
+- MUST run update scripts after uploading files
+- MUST clear Laravel cache
+- MUST clear browser cache
+- Test PDFs before confirming deployment
+
+===============================================

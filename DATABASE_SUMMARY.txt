@@ -1,0 +1,189 @@
+===============================================
+DATABASE CHANGES SUMMARY
+===============================================
+
+📊 TABLE: essentials_policies
+===============================================
+
+🔍 STEP 1: CHECK CURRENT STATUS
+===============================================
+
+Query:
+SELECT policy_type, COUNT(*) as count 
+FROM essentials_policies 
+GROUP BY policy_type;
+
+Expected Output:
+company_policy | 14
+hr_policy      | X
+leave_policy   | 2
+nda_policy     | X
+posh_policy    | X
+
+===============================================
+🗑️ STEP 2: DELETE HR POLICY (OPTIONAL)
+===============================================
+
+Query:
+DELETE FROM essentials_policies 
+WHERE policy_type = 'hr_policy';
+
+Verify:
+SELECT COUNT(*) as hr_policy_count
+FROM essentials_policies 
+WHERE policy_type = 'hr_policy';
+
+Expected: 0
+
+===============================================
+📝 STEP 3: UPDATE POLICY CONTENT
+===============================================
+
+Method 1: Automatic (RECOMMENDED)
+bash> php update_policy_content.php
+bash> php update_leave_policy_content.php
+
+Method 2: Manual SQL
+UPDATE essentials_policies 
+SET content = 'NEW_CONTENT'
+WHERE policy_type = 'company_policy';
+
+UPDATE essentials_policies 
+SET content = 'NEW_CONTENT'
+WHERE policy_type = 'leave_policy';
+
+===============================================
+✅ STEP 4: VERIFY CHANGES
+===============================================
+
+Query 1: Check Company Policy
+SELECT COUNT(*) as count
+FROM essentials_policies 
+WHERE policy_type = 'company_policy';
+Expected: 14
+
+Query 2: Check Leave Policy
+SELECT COUNT(*) as count
+FROM essentials_policies 
+WHERE policy_type = 'leave_policy';
+Expected: 2
+
+Query 3: Check HR Policy is gone
+SELECT COUNT(*) as count
+FROM essentials_policies 
+WHERE policy_type = 'hr_policy';
+Expected: 0
+
+Query 4: Check all policy types
+SELECT DISTINCT policy_type 
+FROM essentials_policies 
+ORDER BY policy_type;
+Expected: company_policy, leave_policy, nda_policy, posh_policy
+
+===============================================
+📋 IMPORTANT QUERIES
+===============================================
+
+1. View all policies:
+SELECT * FROM essentials_policies;
+
+2. View Company Policy records:
+SELECT * FROM essentials_policies 
+WHERE policy_type = 'company_policy';
+
+3. View Leave Policy records:
+SELECT * FROM essentials_policies 
+WHERE policy_type = 'leave_policy';
+
+4. View HR Policy records:
+SELECT * FROM essentials_policies 
+WHERE policy_type = 'hr_policy';
+
+5. View policies by user:
+SELECT * FROM essentials_policies 
+WHERE user_id = 1;
+
+6. View signed policies:
+SELECT * FROM essentials_policies 
+WHERE status = 'signed';
+
+7. View pending policies:
+SELECT * FROM essentials_policies 
+WHERE status = 'pending';
+
+8. Count policies by type and status:
+SELECT policy_type, status, COUNT(*) as count
+FROM essentials_policies
+GROUP BY policy_type, status;
+
+9. View users who signed policies:
+SELECT u.first_name, u.last_name, ep.policy_type, ep.status
+FROM essentials_policies ep
+JOIN users u ON ep.user_id = u.id
+ORDER BY ep.policy_type;
+
+10. View content length:
+SELECT policy_type, LENGTH(content) as content_length
+FROM essentials_policies
+GROUP BY policy_type;
+
+===============================================
+🔄 BACKUP QUERIES
+===============================================
+
+1. Create backup table:
+CREATE TABLE essentials_policies_backup AS 
+SELECT * FROM essentials_policies;
+
+2. Export to CSV:
+SELECT * FROM essentials_policies 
+INTO OUTFILE '/tmp/policies_backup.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
+
+3. Restore from backup:
+TRUNCATE TABLE essentials_policies;
+INSERT INTO essentials_policies 
+SELECT * FROM essentials_policies_backup;
+
+===============================================
+⚠️ IMPORTANT NOTES
+===============================================
+
+1. Use PHP scripts for content updates
+   - Don't manually update content via SQL
+   - PHP scripts handle large content properly
+
+2. HR Policy deletion is optional
+   - You can keep records if needed
+   - Or delete them completely
+
+3. Always backup before changes
+   - Use phpMyAdmin export feature
+   - Or run: mysqldump -u user -p db > backup.sql
+
+4. Verify after each step
+   - Run verification queries
+   - Check Laravel logs
+
+5. No schema changes needed
+   - Only data updates required
+   - Table structure stays the same
+
+===============================================
+✅ FINAL CHECKLIST
+===============================================
+
+- [ ] Backup database
+- [ ] Run: SELECT policy_type, COUNT(*) FROM essentials_policies GROUP BY policy_type;
+- [ ] Run: DELETE FROM essentials_policies WHERE policy_type = 'hr_policy';
+- [ ] Run: php update_policy_content.php
+- [ ] Run: php update_leave_policy_content.php
+- [ ] Run: SELECT DISTINCT policy_type FROM essentials_policies;
+- [ ] Verify HR Policy count = 0
+- [ ] Verify Company Policy count = 14
+- [ ] Verify Leave Policy count = 2
+- [ ] Test PDFs in browser
+
+===============================================
