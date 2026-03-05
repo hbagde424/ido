@@ -248,6 +248,15 @@
         background: #6b0f2a;
     }
     
+    /* Tab visibility */
+    .nav-tabs-custom .tab-content .tab-pane {
+        display: none !important;
+    }
+    
+    .nav-tabs-custom .tab-content .tab-pane.active {
+        display: block !important;
+    }
+    
     @media print {
         .policy-page {
             page-break-after: always;
@@ -1233,10 +1242,20 @@
     $(document).ready(function() {
         $('.select2').select2();
 
-        // Initialize Bootstrap tabs properly
+        // Properly handle Bootstrap tabs
         $('a[data-toggle="tab"]').on('click', function (e) {
             e.preventDefault();
-            $(this).tab('show');
+            var target = $(this).attr('href');
+            
+            // Remove active class from all tabs and panes
+            $('.nav-tabs-custom .nav-tabs li').removeClass('active');
+            $('.nav-tabs-custom .tab-content .tab-pane').removeClass('active');
+            
+            // Add active class to clicked tab and corresponding pane
+            $(this).parent('li').addClass('active');
+            $(target).addClass('active');
+            
+            console.log('Switched to tab:', target);
         });
 
         // Auto-load signatures for regular users on page load
