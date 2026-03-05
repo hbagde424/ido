@@ -8,6 +8,7 @@ class PolicyTemplates
     {
         $templates = [
             'company_policy' => self::companyPolicyTemplate(),
+            'hr_policy' => self::hrPolicyTemplate(),
             'leave_policy' => self::leavePolicyTemplate(),
             'posh_policy' => self::poshPolicyTemplate(),
             'nda_policy' => self::ndaPolicyTemplate(),
@@ -315,6 +316,46 @@ class PolicyTemplates
 
 <h3>Jurisdiction</h3>
 <p>All matters related to employment shall be subject to the Bhopal jurisdiction only.</p>
+
+<h3>Acknowledgment</h3>
+<p>By signing this document, I acknowledge that I have read, understood, and agree to comply with all policies outlined in this Human Resource Policy Manual of Akalp Techno Media Solutions.</p>';
+    }
+
+    private static function hrPolicyTemplate()
+    {
+        return '<div style="margin-bottom: 30px;">
+<h2 style="text-align: center; color: #8B1538; margin-bottom: 5px;">HUMAN RESOURCE POLICY</h2>
+<h3 style="text-align: center; color: #333; margin-top: 0; margin-bottom: 20px;">Akalp Techno Media Solutions LLP</h3>
+
+<h3>1. Introduction</h3>
+<p>This Human Resource Policy outlines the guidelines and procedures for managing human resources at Akalp Techno Media Solutions. These policies are designed to ensure fair treatment, professional conduct, and a positive work environment for all employees.</p>
+
+<h3>2. Recruitment and Selection</h3>
+<p>The company follows a transparent and merit-based recruitment process. All positions are filled based on qualifications, experience, and suitability for the role. Equal opportunity is provided to all candidates regardless of gender, caste, religion, or any other protected characteristic.</p>
+
+<h3>3. Employment Terms and Conditions</h3>
+<p>Employment with the company is at-will, meaning either party can terminate the employment relationship with appropriate notice. All employees are required to sign an employment agreement outlining their roles, responsibilities, compensation, and benefits.</p>
+
+<h3>4. Working Hours and Leave</h3>
+<p>Standard working hours are 9:00 AM to 6:00 PM, Monday to Friday. Employees are entitled to paid leave as per company policy and applicable labor laws. Leave requests must be submitted in advance and approved by the respective manager.</p>
+
+<h3>5. Compensation and Benefits</h3>
+<p>Compensation is determined based on job role, experience, and performance. The company provides competitive salaries, health insurance, and other benefits as per policy. Salary reviews are conducted annually.</p>
+
+<h3>6. Performance Management</h3>
+<p>Employees are evaluated based on their performance, productivity, and adherence to company policies. Regular feedback is provided to help employees improve and grow in their roles.</p>
+
+<h3>7. Code of Conduct</h3>
+<p>All employees are expected to maintain professional conduct, treat colleagues with respect, and adhere to company policies. Any violation of the code of conduct may result in disciplinary action.</p>
+
+<h3>8. Confidentiality and Data Protection</h3>
+<p>Employees must maintain confidentiality of company information and client data. Unauthorized disclosure of confidential information is strictly prohibited and may result in legal action.</p>
+
+<h3>9. Health and Safety</h3>
+<p>The company is committed to providing a safe and healthy work environment. Employees are responsible for following safety guidelines and reporting any hazards or incidents immediately.</p>
+
+<h3>10. Grievance Redressal</h3>
+<p>Employees have the right to raise grievances through the designated grievance redressal mechanism. All grievances will be addressed fairly and confidentially.</p>
 
 <h3>Acknowledgment</h3>
 <p>By signing this document, I acknowledge that I have read, understood, and agree to comply with all policies outlined in this Human Resource Policy Manual of Akalp Techno Media Solutions.</p>';

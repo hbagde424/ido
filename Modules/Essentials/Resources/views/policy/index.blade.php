@@ -248,6 +248,14 @@
         background: #6b0f2a;
     }
     
+    .tab-pane {
+        display: none;
+    }
+    
+    .tab-pane.active {
+        display: block;
+    }
+    
     @media print {
         .policy-page {
             page-break-after: always;
