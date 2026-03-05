@@ -42,11 +42,21 @@ class EssentialsPolicyController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        // Get only the currently logged-in user
-        $users = User::where('business_id', $business_id)
-                    ->select(DB::raw("CONCAT(COALESCE(surname, ''), ' ', COALESCE(first_name, ''), ' ', COALESCE(last_name, '')) as full_name"), 'id')
-                    ->pluck('full_name', 'id');
-
+        // Check if user is superadmin or admin
+        $is_admin = auth()->user()->can('superadmin') || auth()->user()->hasRole('Admin#'.$business_id);
+        
+        if ($is_admin) {
+            // Super admin or Admin can see all users
+            $users = User::where('business_id', $business_id)
+                        ->select(DB::raw("CONCAT(COALESCE(surname, ''), ' ', COALESCE(first_name, ''), ' ', COALESCE(last_name, '')) as full_name"), 'id')
+                        ->pluck('full_name', 'id');
+        } else {
+            // Regular user can only see themselves
+            $users = User::where('business_id', $business_id)
+                        ->where('id', auth()->user()->id)
+                        ->select(DB::raw("CONCAT(COALESCE(surname, ''), ' ', COALESCE(first_name, ''), ' ', COALESCE(last_name, '')) as full_name"), 'id')
+                        ->pluck('full_name', 'id');
+        }
 
         return view('essentials::policy.index', compact('users'));
     }
@@ -312,7 +322,6 @@ class EssentialsPolicyController extends Controller
 
         $policy_types = [
             'company_policy' => 'Company Policy',
-            'hr_policy' => 'HR Policy',
             'leave_policy' => 'Leave Policy',
             'posh_policy' => 'POSH Policy',
             'nda_policy' => 'NDA Policy',
@@ -377,6 +386,23 @@ class EssentialsPolicyController extends Controller
                 return response()->json(['success' => false, 'message' => 'User not found']);
             }
 
+            // Check if policy is already signed
+            $existingPolicy = EssentialsPolicy::where('business_id', $business_id)
+                                              ->where('user_id', $user_id)
+                                              ->where('policy_type', $policy_type)
+                                              ->where('status', 'signed')
+                                              ->first();
+            
+            // Also check if user already has signature
+            if ($user->signature_photo && file_exists(public_path('uploads/user_signatures/' . $user->signature_photo))) {
+                if ($existingPolicy) {
+                    return response()->json([
+                        'success' => false, 
+                        'message' => 'This policy has already been signed and acknowledged. Cannot sign again.'
+                    ]);
+                }
+            }
+
             // Handle signature upload to user table
             if ($request->hasFile('signature')) {
                 $file = $request->file('signature');
@@ -413,7 +439,6 @@ class EssentialsPolicyController extends Controller
 
             $policy_types = [
                 'company_policy' => 'Company Policy',
-                'hr_policy' => 'HR Policy',
                 'leave_policy' => 'Leave Policy',
                 'posh_policy' => 'POSH Policy',
                 'nda_policy' => 'NDA Policy',
@@ -427,7 +452,9 @@ class EssentialsPolicyController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Signature saved successfully'
+                'message' => 'Signature saved successfully',
+                'user_name' => $user->first_name . ' ' . $user->last_name,
+                'signed_date' => now()->format('d-m-Y')
             ]);
         } catch (\Exception $e) {
             \Log::emergency('File:'.$e->getFile().'Line:'.$e->getLine().'Message:'.$e->getMessage());
@@ -457,11 +484,23 @@ class EssentialsPolicyController extends Controller
                 abort(404, 'User not found');
             }
 
-            // Get or create policy
+            // Check if user has signed the policy
             $policy = EssentialsPolicy::where('business_id', $business_id)
                                       ->where('user_id', $user_id)
                                       ->where('policy_type', $policy_type)
                                       ->first();
+
+            // Also check if user has signature in users table
+            $has_signature = false;
+            if ($user->signature_photo && file_exists(public_path('uploads/user_signatures/' . $user->signature_photo))) {
+                $has_signature = true;
+            }
+            
+            // Check if policy exists and is signed, or user has signature
+            if (!$has_signature && (!$policy || $policy->status !== 'signed')) {
+                // Return HTML response with error message
+                return response('<html><body><h2>Cannot Download PDF</h2><p>User must sign and acknowledge the policy first.</p><script>setTimeout(function(){ window.close(); }, 3000);</script></body></html>', 403);
+            }
 
             if (!$policy) {
                 // Create temporary policy object for PDF
@@ -473,7 +512,6 @@ class EssentialsPolicyController extends Controller
                 
                 $policy_types = [
                     'company_policy' => 'Company Policy',
-                    'hr_policy' => 'HR Policy',
                     'leave_policy' => 'Leave Policy',
                     'posh_policy' => 'POSH Policy',
                     'nda_policy' => 'NDA Policy',
@@ -481,8 +519,8 @@ class EssentialsPolicyController extends Controller
                 
                 $policy->title = $policy_types[$policy_type] ?? $policy_type;
                 $policy->content = \Modules\Essentials\Entities\PolicyTemplates::getTemplate($policy_type);
-                $policy->status = 'pending';
-                $policy->signed_date = null;
+                $policy->status = 'signed';
+                $policy->signed_date = now()->format('Y-m-d');
                 $policy->signature_photo = null;
                 $policy->created_at = now();
             }
@@ -490,17 +528,21 @@ class EssentialsPolicyController extends Controller
             // Explicitly set the user relationship
             $policy->setRelation('user', $user);
 
-            $pdf = PDF::loadView('essentials::policy.pdf', compact('policy'));
-            $pdf->setOption('isPhpEnabled', false);
-            $pdf->setOption('isRemoteEnabled', false);
-            return $pdf->download('policy_' . $user->first_name . '_' . $policy_type . '.pdf');
+            try {
+                $pdf = PDF::loadView('essentials::policy.pdf', compact('policy'));
+                $pdf->setOption('isPhpEnabled', false);
+                $pdf->setOption('isRemoteEnabled', false);
+                $pdf->setOption('enable-local-file-access', true);
+                return $pdf->download('policy_' . $user->first_name . '_' . $policy_type . '.pdf');
+            } catch (\Exception $pdfError) {
+                // If PDF generation fails, return HTML view instead
+                \Log::warning('PDF Generation Failed, returning HTML view: ' . $pdfError->getMessage());
+                return view('essentials::policy.pdf', compact('policy'));
+            }
         } catch (\Exception $e) {
             \Log::emergency('PDF Generation Error - File:'.$e->getFile().' Line:'.$e->getLine().' Message:'.$e->getMessage());
             
-            return response()->json([
-                'success' => false,
-                'message' => 'Error generating PDF: ' . $e->getMessage()
-            ], 500);
+            return response('<html><body><h2>Error Generating PDF</h2><p>' . $e->getMessage() . '</p><p>Please contact administrator to install PHP GD extension.</p><script>setTimeout(function(){ window.close(); }, 5000);</script></body></html>', 500);
         }
     }
 

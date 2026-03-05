@@ -212,10 +212,10 @@
         margin-top: 20px;
         padding: 15px;
         background: #f9f9f9;
-        border: 1px dashed #ddd;
+        border: 2px dashed #8B1538;
         border-radius: 3px;
         text-align: center;
-        min-height: 80px;
+        min-height: 100px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -235,12 +235,13 @@
     .upload-btn {
         background: #8B1538;
         color: white;
-        padding: 8px 15px;
+        padding: 10px 20px;
         border: none;
         border-radius: 3px;
         cursor: pointer;
-        font-size: 12px;
+        font-size: 14px;
         margin-top: 10px;
+        font-weight: 600;
     }
     
     .upload-btn:hover {
@@ -271,6 +272,10 @@
                     <h3 class="box-title"><i class="fa fa-user"></i> User-Specific Policy Management</h3>
                 </div>
                 <div class="box-body">
+                    @php
+                        $is_admin = auth()->user()->can('superadmin') || auth()->user()->hasRole('Admin#'.request()->session()->get('user.business_id'));
+                    @endphp
+                    @if($is_admin)
                     
                     <div class="row mb-3" style="margin-bottom: 20px;">
                         <div class="col-md-4">
@@ -371,6 +376,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -395,6 +401,12 @@
                                         <option value="{{ $id }}" @if($id == auth()->user()->id) selected @endif>{{ $name }}</option>
                                     @endforeach
                                 </select>
+                                @php
+                                    $is_admin = auth()->user()->can('superadmin') || auth()->user()->hasRole('Admin#'.request()->session()->get('user.business_id'));
+                                @endphp
+                                @if(!$is_admin)
+                                    <input type="hidden" id="current_user_id" value="{{ auth()->user()->id }}">
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -459,7 +471,7 @@
                                             
                                             <!-- Footer -->
                                             <div class="policy-page-footer-section">
-                                                <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                                <p><span class="policy-page-footer-icon">≡ƒôì</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
                                                 <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                             </div>
                                         </div>
@@ -528,7 +540,7 @@
                                         
                                         <!-- Footer -->
                                         <div class="policy-page-footer-section">
-                                            <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                            <p><span class="policy-page-footer-icon">≡ƒôì</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
                                             <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                         </div>
                                     </div>
@@ -583,7 +595,7 @@
                                             
                                             <!-- Footer -->
                                             <div class="policy-page-footer-section">
-                                                <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                                <p><span class="policy-page-footer-icon">≡ƒôì</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
                                                 <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                             </div>
                                         </div>
@@ -663,7 +675,7 @@
                                         
                                         <!-- Footer -->
                                         <div class="policy-page-footer-section">
-                                            <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                            <p><span class="policy-page-footer-icon">≡ƒôì</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
                                             <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                         </div>
                                     </div>
@@ -720,7 +732,7 @@
                                             
                                             <!-- Footer -->
                                             <div class="policy-page-footer-section">
-                                                <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                                <p><span class="policy-page-footer-icon">≡ƒôì</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
                                                 <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                             </div>
                                         </div>
@@ -800,7 +812,7 @@
                                         
                                         <!-- Footer -->
                                         <div class="policy-page-footer-section">
-                                            <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                            <p><span class="policy-page-footer-icon">≡ƒôì</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
                                             <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                         </div>
                                     </div>
@@ -857,7 +869,7 @@
                                             
                                             <!-- Footer -->
                                             <div class="policy-page-footer-section">
-                                                <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                                <p><span class="policy-page-footer-icon">≡ƒôì</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
                                                 <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                             </div>
                                         </div>
@@ -937,7 +949,7 @@
                                         
                                         <!-- Footer -->
                                         <div class="policy-page-footer-section">
-                                            <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                            <p><span class="policy-page-footer-icon">≡ƒôì</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
                                             <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                         </div>
                                     </div>
@@ -994,7 +1006,7 @@
                                             
                                             <!-- Footer -->
                                             <div class="policy-page-footer-section">
-                                                <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                                <p><span class="policy-page-footer-icon">≡ƒôì</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
                                                 <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                             </div>
                                         </div>
@@ -1074,7 +1086,7 @@
                                         
                                         <!-- Footer -->
                                         <div class="policy-page-footer-section">
-                                            <p><span class="policy-page-footer-icon">📍</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
+                                            <p><span class="policy-page-footer-icon">≡ƒôì</span> Address: 3rd Floor B5-B6 Platinum Plaza, Near Mata Mandir, Bhopal</p>
                                             <p>This is an official document. Generated on {{ now()->format('d-m-Y H:i:s') }}</p>
                                         </div>
                                     </div>
@@ -1220,6 +1232,18 @@
 
     $(document).ready(function() {
         $('.select2').select2();
+
+        // Auto-load signatures for regular users on page load
+        var currentUserId = $('#current_user_id').val();
+        console.log('Current User ID:', currentUserId);
+        if (currentUserId) {
+            // Regular user - auto-select themselves and load signatures
+            console.log('Auto-loading signatures for user:', currentUserId);
+            setTimeout(function() {
+                $('#user_filter_policies').val(currentUserId).trigger('change');
+                console.log('Triggered change event for user:', currentUserId);
+            }, 300);
+        }
 
         // Acknowledgement checkbox - show signature upload section when checked
         $(document).on('change', '.policy-acknowledgement', function() {
@@ -1552,6 +1576,7 @@
         // Load signatures when user is selected in All Policies section
         $('#user_filter_policies').change(function() {
             var userId = $(this).val();
+            console.log('User selected:', userId);
             
             if (!userId) {
                 $('.signature-preview-img').hide();
@@ -1571,6 +1596,7 @@
                         policy_type: policyType 
                     },
                     success: function(response) {
+                        console.log('Signature response for ' + policyType + ':', response);
                         var uploadArea = $('#signature_upload_' + policyType);
                         var uploadBtn = uploadArea.find('.upload-btn');
                         var fileInput = uploadArea.find('.signature-file-input');
@@ -1606,7 +1632,8 @@
                             }
                         }
                     },
-                    error: function() {
+                    error: function(xhr) {
+                        console.error('Error loading signature for ' + policyType + ':', xhr);
                         // On error, show upload button
                         var uploadArea = $('#signature_upload_' + policyType);
                         uploadArea.find('.upload-btn').show();

@@ -105,8 +105,13 @@ class AppServiceProvider extends ServiceProvider
             ['layouts.*'],
             function ($view) {
                 if (isAppInstalled()) {
-                    $keys = ['additional_js', 'additional_css'];
-                    $__system_settings = System::getProperties($keys, true);
+                    try {
+                        $keys = ['additional_js', 'additional_css'];
+                        $__system_settings = System::getProperties($keys, true);
+                    } catch (\Exception $e) {
+                        \Log::warning('Failed to get system settings: ' . $e->getMessage());
+                        $__system_settings = [];
+                    }
 
                     //Get js,css from modules
                     $moduleUtil = new ModuleUtil;
