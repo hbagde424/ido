@@ -249,11 +249,19 @@
     }
     
     .tab-pane {
-        display: none;
+        display: none !important;
     }
     
     .tab-pane.active {
-        display: block;
+        display: block !important;
+    }
+    
+    .nav-tabs-custom > .tab-content > .tab-pane {
+        display: none !important;
+    }
+    
+    .nav-tabs-custom > .tab-content > .tab-pane.active {
+        display: block !important;
     }
     
     @media print {
@@ -1240,6 +1248,14 @@
 
     $(document).ready(function() {
         $('.select2').select2();
+
+        // Initialize Bootstrap tabs
+        $('[data-toggle="tab"]').on('click', function(e) {
+            e.preventDefault();
+            var target = $(this).attr('href');
+            $('.tab-pane').removeClass('active').hide();
+            $(target).addClass('active').show();
+        });
 
         // Auto-load signatures for regular users on page load
         var currentUserId = $('#current_user_id').val();
