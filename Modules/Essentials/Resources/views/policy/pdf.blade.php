@@ -344,7 +344,14 @@
 
             <div class="signature-box">
                 <p><strong>Company Representative</strong></p>
-                <div style="height: 60px;"></div>
+                @php
+                    $companySignaturePath = public_path('images/company-signature.jpg');
+                @endphp
+                @if(file_exists($companySignaturePath))
+                    <img src="{{ $companySignaturePath }}" alt="Company Representative Signature" class="signature-image">
+                @else
+                    <div style="height: 60px;"></div>
+                @endif
                 <div class="signature-line"></div>
                 <p>Authorized Signatory</p>
                 <p style="font-size: 9px; color: #666;">Date: ___________</p>
